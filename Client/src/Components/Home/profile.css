@@ -1,0 +1,100 @@
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.profile-pic{
+}
+
+.profile-container p{
+    border: 1px solid gray;
+    padding: 10px;
+    font-size: 20px;
+    width: 400px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.profile-container a{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    height: 60px;
+    width: 150px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: green;
+    color: white;
+    transition: ease 0.3s;
+    margin-bottom: 4px;
+}
+.profile-container a:hover{
+    width: 160px;
+    font-size: 21px;
+}
+.edit-profile-container{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    background-color: white;
+    padding: 15px;
+}
+
+.edit-profile-pic{
+    border: transparent;
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+.edit-profile-input{
+    display: flex;
+    flex-direction:column ;
+    justify-content: space-between;
+    width: 400px;    
+    align-items: center;
+}
+.edit-profile-input input{
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid grey;
+    text-align: center;
+}
+.edit-profile-input input:focus{
+    box-shadow: 2px 2px rgb(200, 176, 20);
+    border: 2px solid rgb(200, 176, 20);
+    
+}
+.edit-profile-input button{
+       display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    height: 60px;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: green;
+    color: white;
+    transition: ease 0.3s;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+.edit-profile-input button:hover{
+    width: 210px;
+    font-size: 21px;
+}

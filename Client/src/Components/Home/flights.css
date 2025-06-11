@@ -1,0 +1,147 @@
+.adminFlight-container{
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.adminFlight-container img{
+    height: 460px;
+    overflow: hidden;
+}
+.admin-flight-heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top:-350px;
+}
+.heading-admin-flight{
+    color: white;
+    font-size: 50px;
+    text-shadow: 2px 2px #c5b419;
+    font-style: italic;
+    font-weight: 700;
+}
+.flight-admin{
+    position: relative;
+    bottom: 140px;
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.flight-card{
+    margin: 20px;
+    background-color: white;
+    border: transparent;
+    padding: 0%;
+    width: 1200px;
+    border-radius: 30px;
+}
+.flight-card-top {
+    border-bottom: 0px transparent;
+    color: grey;
+    margin-top: 0%;
+    display: flex;
+    justify-content: flex-start;
+}
+.flight-card-top img{
+    height: 10px;
+    margin-right: 8px;
+}
+.flight-card-mid{
+    display: flex;
+    width: 1000px;
+    height: 150px;
+    padding: 0%;
+    justify-content:space-between;
+}
+.flight-card-mid-left{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    width: 600px;
+}
+
+.flight-card-duration,
+.flight-card-arrival,
+.flight-card-dep{
+    display: flex;
+    flex-direction: column;
+    
+}
+.flight-card-mid-right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    left: 40px;
+    color: green;
+    justify-content: space-evenly;
+}
+
+
+.flight-card-bottom{
+    display: flex;
+    opacity: 1;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid gray;
+    transition: ease-in-out 1s ;
+}
+.flight-card-seat{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: ease 2s;
+}
+.flight-card-seat p{
+    width: 200px;
+    height: 30px;
+    padding: 10px;
+    color: white;
+    margin-top: 0%;
+    text-align: center;
+    font-size: 17px;
+    background: rgba(3, 108, 3, 0.934);
+    margin-bottom: 20px;
+}
+.flight-card-seat span{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.flight-card-seat button{
+    margin-bottom: 10px;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid grey;
+}
+.No-flight{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -100px;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.admin-flight-offer{
+    position: relative;
+    display: block;
+    width: 1000px;
+    background-color: white;
+    padding: 20px;
+    top: 50px;
+    border-radius: 40px;
+
+}

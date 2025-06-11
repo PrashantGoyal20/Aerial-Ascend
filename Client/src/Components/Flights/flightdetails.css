@@ -1,0 +1,81 @@
+.flight-detail-card{
+    height: 700px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.flight-detail-card-top{
+    background-color: white;
+    width: 100vw;
+    height: 100px;
+    padding-left: 24px;
+    position: relative;
+    top: -45px;
+    border: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.flight-detail-card-top-left-above{
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+}
+.flight-detail-card-top-left-below{
+    display: flex;
+    align-items: center;
+    width: 150px;
+    justify-content: space-between;
+}
+.flight-detail-card-top-left-above span{
+    font-size: 23px;
+}
+.flight-detail-card-top-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.flight-detail-card-top-right-above{
+    background-image: radial-gradient(rgb(231, 150, 162), rgb(252, 3, 3));
+    cursor: pointer;
+    margin-bottom: 4px;
+    padding: 20px;
+    font-size: 20px;
+    color: white;
+    width: 100px;
+    text-align: center;
+    border-radius: 20px;
+}
+.flight-detail-card-top-right-below{
+    color: grey;
+}
+.flight-detail-card-mid{
+    display: flex;
+    background-color: white;
+    height: 100px;
+    width: 1000px;
+}
+.flight-detail-card-mid div{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+.leaflet-container{
+    width: 100vw;
+    height: auto;position: relative;
+    top: 40px;
+}
+.book{
+    width: 200px;
+    height: 50px;
+    border-radius:80px ;
+    border: transparent;
+    background-image: radial-gradient(rgb(243, 242, 247), green);
+    transition: ease-in-out 0.4s;
+}
+.book:hover{
+    width: 220px;
+}

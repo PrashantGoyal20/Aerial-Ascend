@@ -1,0 +1,147 @@
+.banner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.banner-top{
+    display: grid;
+    grid-template-rows: 420px 420px;
+    grid-template-columns: 620px 620px;
+    column-gap: 100px;
+    row-gap: 60px;
+}
+.banner-top-button{
+    border: 1px solid transparent;
+    border-radius: 15px;
+}
+.banner-top-button:hover{
+    cursor: pointer;
+}
+.France{
+    background-image: url('France-2.jpg');
+    background-size: cover;
+    transition: .5s ease;
+    color: rgb(224, 223, 202);
+    font-size: 45px;
+    text-shadow: 2px 2px black;
+    
+}
+.France:hover{
+    background-image: url('France-1.jpg');
+    background-size: cover;
+    transition: 1s ease;
+}
+.US{
+    background-image: url('America-1.jpg');
+    background-size: cover;
+    color: rgb(224, 223, 202);
+    font-size: 45px;
+    text-shadow: 2px 2px black;
+    transition: .5s ease;
+}
+.US:hover{
+    background-image: url('America-2.jpg');
+    background-size: cover;
+    transition: 1s ease;
+}
+
+.Japan{
+    background-image: url('Japan-1.jpg');
+    background-size: cover;
+    color: rgb(224, 223, 202);
+    font-size: 45px;
+    text-shadow: 2px 2px black;
+    transition: .5s ease;
+}
+.Japan:hover{
+    background-image: url('Japan-2.jpg');
+    background-size: cover;
+    transition: 1s ease;
+}
+.Austrailia{
+    background-image: url('Austrailia-1.jpg');
+    background-size: cover;
+    color: rgb(224, 223, 202);
+    font-size: 45px;
+    text-shadow: 2px 2px black;
+    transition: .5s ease;
+}
+.Austrailia:hover{
+    background-image: url('Austrailia-2.jpg');
+    background-size: cover;
+    transition: 1s ease;
+}
+.banner-mid{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 100%;
+    background-image: url("Trip-4.jpg");
+    background-size: cover;
+}
+
+.banner-mid span{
+    position: relative;
+    top: -40px;
+    color: white;
+    font-size: 50px;
+}
+.banner-mid p{
+    color: white;
+    position: relative;
+    top: -55px;
+}
+.banner-mid button{
+    border: 1px solid transparent;
+    height: 40px;
+    width: 200px;
+    transition: 0.5s ease;
+    border-radius: 15px;
+    
+
+}
+.banner-mid button:hover{
+    cursor: pointer;
+    width: 210px;
+}
+.banner-bottom{
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: aliceblue;
+}
+.banner-bottom span{
+    font-size: 40px;
+    font-weight: 600;
+}
+.banner-bottom p{
+
+}
+.banner-bottom div{
+    margin-top: 40px;
+    display: flex;
+    width: 60%;
+    justify-content: space-evenly;
+}
+.banner-bottom img{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
+}
+.banner-bottom div span{
+    margin-top: 0%;
+    padding-top: 0%;
+    font-size: 20px;
+    font-weight: 400;
+}

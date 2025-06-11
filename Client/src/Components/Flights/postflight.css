@@ -1,0 +1,122 @@
+.post-flight-container{
+    background-color: rgb(248, 242, 242);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
+}
+.post-flight-heading{
+    margin-top: 20px;
+}
+.post-flight-heading span{
+    font-size: 45px;
+    text-transform: uppercase;
+    
+    font-style: italic;
+    margin-top: 20px;
+    font-weight: 700;
+    animation: fadeIn 0.6s ease-in-out forwards;
+}
+.post-flight-heading p{
+    font-style: italic;
+    color: green;
+    font-size: 14px;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.post-flight-container form{
+    display: grid;
+    grid-template-columns: 500px 500px;
+    row-gap: 50px;
+    margin-top: 80px;
+    column-gap: 200px;
+}
+.post-flight-container form input{
+    height: 40px;
+    padding: 5px;
+    padding-left: 30px;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+.post-flight-seats button{
+    position: relative;
+    background-color: transparent;
+    border: transparent;
+}
+
+.seat-choosers{
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 300px 300px 300px;
+    column-gap: 80px;
+    width: 900px;
+    margin-bottom: 20px;
+}
+.seat-choosers select{
+    padding: 5px;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-position-x: 95%;
+    background-position-y: 50%;
+}
+.map-container{
+    width: 100%;
+    border: 2px solid black;
+    margin-top: 2.5%;
+    
+}
+
+.coord{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.coord label{
+    margin-bottom: 10px;
+    margin-left: 25px;
+    font-style: oblique;
+}
+.post-flight-button{
+    width: 79vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.post-flight-map-btn{
+    margin-bottom: 60px;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border-radius: 60px;
+    border: transparent;
+    background-color: blue;
+    color: white;
+}
+
+.post-flight-submit-btn{
+    margin-bottom: 60px;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border-radius: 60px;
+    border: transparent;
+    background-color: rgb(190, 190, 6);
+    color: white;
+}

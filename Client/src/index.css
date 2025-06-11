@@ -1,0 +1,17 @@
+:root{
+  background-color: rgb(228, 228, 228);
+  overflow-x: hidden;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+          }

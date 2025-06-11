@@ -1,0 +1,84 @@
+.home-container{
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.home-card{
+    width: 100%;
+    overflow: hidden;
+}
+.home-card::after{
+    background-image: linear-gradient(to right,#000000,transparent);
+    content: '';
+    display: block;
+    height: 54%;
+    opacity: 0.5;
+    transition: opacity .4s ease;
+    position: absolute;
+    top: 87px;
+    width: 100%;
+}
+
+.home-card picture{
+    height: 460px;
+    overflow: hidden;
+    position: relative;
+    
+}
+.home-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 10px 10px black inset;
+    
+}
+.premium{
+    position: absolute;
+    display: block;
+    top: 180px;
+    left: 60px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 60px;
+    width: 700px;
+    color: white;
+}
+.premium-continue{
+    position: absolute;
+    display: block;
+    top: 260px;
+    left: 80px;
+    font-style: italic;
+    font-family:Arial, Helvetica;
+    font-weight: 400;
+    font-size: 60px;
+    width: 700px;
+    color: white;
+    
+}
+.premium-continue span{
+    color: rgb(229, 225, 13);
+}
+.fly-better{
+    position: absolute;
+    display: block;
+    top: 200px;
+    left:1100px ;
+    width: 300px;
+}
+.page-not-found-container{
+    height: 41vh;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; 
+}
+.page-not-found-container span{
+    font-size: 70px;
+    color: grey;
+    font-weight: 700;
+}
+.page-not-found-container p{
+    font-size: 20px;
+    color: rgb(225, 134, 23);
+}
