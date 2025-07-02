@@ -76,26 +76,31 @@ export const login = async (req, res, next) => {
 //LOGOUT
 
 export const logout = async (req, res, next) => {
-  res
-    .status(201)
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-    })
-    .json({
-      success: true,
-      message: "Logged Out Successfully.",
-    });
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: true
+  });
+  res.status(200).json({
+    sucsess:true,
+    message: 'Logged out successfully' });
 
 }
 
 //GET USER
 export const getUser = async (req, res, next) => {
+  try {
+    
   const user = req.user;
   res.status(200).json({
     success: true,
     user,
   })
+    
+  } catch (error) {
+    res.status(404).json({
+      success:false
+    })
+  }
 }
 
 //Update User

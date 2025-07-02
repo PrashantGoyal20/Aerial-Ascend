@@ -30,9 +30,10 @@ const FlightSchema = new mongoose.Schema({
     arrivalTime: {
         type: String,
         required: true
+        
     },
     duration: {
-        type: Number,
+        type: String,
         required: true
     },
     price: {
@@ -57,8 +58,8 @@ const FlightSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["On Time", "Delayed", "Cancelled"],
-        default: "On Time"
+        enum: ["On Time", "Expired", "Cancelled"],
+        default: "On Time",
     },
 });
 

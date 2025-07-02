@@ -14,18 +14,23 @@ const PassengerSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    numberOfPassengers: {
-        type: Number,
-        required: true
+    origin:{
+        type:String,
+        required:true
     },
-
+    destination:{
+        type:String,
+        required:true
+    },
+    age:{
+        type:Number,
+    },
+    address:{
+        type:String
+    },
     airlineID: {
         type: mongoose.Schema.ObjectId,
         ref: 'Flights',
-        required: true
-    },
-    airline: {
-        type: String,
         required: true
     },
     flightNumber: {
@@ -36,14 +41,6 @@ const PassengerSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    OriginCoordinates:{
-        type:Number,
-        require:true,
-    },
-    DestinationCoordinates:{
-        type:Number,
-        require:true,
-    },
     seatType:{
         type:String,
         enum:['Economy','Premium Economy','Business','First'],
@@ -51,8 +48,17 @@ const PassengerSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Confirmed", "Waiting", "Cancelled"],
+        enum: ["Confirmed", "Cancelled"],
         default: "Confirmed"
+    },
+    razorpay_payment_id:{
+        type: String
+    },
+    razorpay_order_id:{
+        type: String
+    },
+    razorpay_signature:{
+        type: String
     },
 });
 

@@ -47,7 +47,7 @@ const Footer = () => {
                     <Link to='/'>Unsubscribe or change your preferences</Link>
 
                 </div>
-                <div><p>Emirates App</p>
+                <div><p>Aerial Ascend App</p>
                     <div>Book and manage your flights on the go.</div>
                     <div className='google-play'>
                         <img src='./App-Store.jpg' />

@@ -1,14 +1,18 @@
-import React from 'react'
+import React,{useState} from 'react'
 import "./banner.css"
+import { useNavigate } from 'react-router-dom'
 
 const Banner = () => {
+  const [place,setPlace]=useState('')
+  const navigate=useNavigate()
   return (
     <div className='banner-container'>
       <div className='banner-top'>
-        <button className='France banner-top-button' placeholder="France" >FRANCE</button>
-        <button className='US banner-top-button' placeholder='United States'>UNITED STATES</button>
-        <button className='Japan banner-top-button' placeholder='Japan'>JAPAN</button>
-        <button className='Austrailia banner-top-button' placeholder='Australia'>AUSTRAILIA</button>
+      
+        <button className='France banner-top-button' value='Paris' onClick={(e)=> navigate(`/search?destination=${e.target.value}`)} placeholder="France" >PARIS</button>
+        <button className='US banner-top-button' value='New York' onClick={(e)=> navigate(`/search?destination=${e.target.value}`)} placeholder='United States'>NEW YORK</button>
+        <button className='Japan banner-top-button' value='Tokyo' onClick={(e)=> navigate(`/search?destination=${e.target.value}`)} placeholder='Japan'>TOKYO</button>
+        <button className='Austrailia banner-top-button'  value='Melbourne' onClick={(e)=> navigate(`/search?destination=${e.target.value}`)} placeholder='Australia'>MELBOURNE</button>
       </div>
 
       <div className='banner-mid'>

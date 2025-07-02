@@ -18,7 +18,7 @@ const Wrapper=()=>{
         user,
         setUser,
         term,
-        setTerm,
+        setTerm
       }}
     >
       <App />

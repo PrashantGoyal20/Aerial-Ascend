@@ -1,9 +1,13 @@
 import express from "express";
 import { authenticator } from "../Middleware/authenticator.js";
-import { postPassenger } from "../Controller/passenger.js";
+import { createOrder, passengerInfo, postPassenger, searchPassenger, ticketGenerator } from "../Controller/passenger.js";
 
 const router=express.Router()
 
-router.post('/postPassenger/:id',authenticator,postPassenger)
+router.post('/create-order',authenticator,createOrder )
+router.post('/save-passenger/:id',postPassenger)
+router.get('/success/:id',ticketGenerator)
+router.get('/passengerInfo/:id',passengerInfo)
+router.get('/search-passeneger',searchPassenger)
 
 export default router

@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../main';
 import toast from 'react-hot-toast';
 import axios from "axios"
+import Header from '../Footer/Header';
+import Footer from '../Footer/Footer';
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -24,40 +26,25 @@ const Login = () => {
       }
 
       );
-      console.log(data);
       toast.success(data.message);
       setEmail("");
       setPassword("");
       setIsAuthorized(true);
       setUser(data.user);
       navigate('/')
-      console.log(data.message);
 
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Please fill all Your Credentials ");
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.prevenDeafault()
-    try {
-      const { data } = await axios.post("http://localhost:3000/user/login",
-        { email, password, role }, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-
-      );
-      console.log(data);
-      toast.success(data.message);
-    } catch (error) {
-
-    }
-  }
+  
   return (
+    <>
+      <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1740937097/x2jgj7ypgocfggr8qyuv.png" height="140px"/>
+    
     <div className='login-cover'>
+    
       <div className='login-box'>
         <img src='Logo_White.png' />
         <form className='input-containers'>
@@ -74,6 +61,8 @@ const Login = () => {
       </div>
 
     </div>
+    <Footer/>
+    </>
   )
 }
 

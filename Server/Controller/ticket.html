@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Arial';
+            padding: 40px;
+            position: relative;
+        }
+
+        .ticket-container {
+            border: 2px dashed #555;
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            position: relative;
+        }
+
+        .airline-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .airline-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .watermark img {
+            width: 300px;
+        }
+
+        .info {
+            z-index: 1;
+            position: relative;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .info-row strong {
+            width: 160px;
+            display: inline-block;
+        }
+
+        .barcode {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .barcode img {
+            width: 200px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ticket-container">
+        <div class="watermark">
+            <img src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" />
+        </div>
+        <div class="info">
+            <div class="airline-header">
+                <h1>Aerial Ascend Airlines</h1>
+                <p><strong>Boarding Pass</strong></p>
+            </div>
+
+            <div class="info-row"><strong>Name:</strong> <span>{{NAME}}</span></div>
+            <div class="info-row"><strong>PNR:</strong> <span>{{PNR}}</span></div>
+            <div class="info-row"><strong>Email:</strong> <span>{{EMAIL}}</span></div>
+            <div class="info-row"><strong>Phone:</strong> <span>{PHONE}</span></div>
+            <div class="info-row"><strong>Age:</strong> <span>{{AGE}}</span></div>
+            <div class="info-row"><strong>Address:</strong> <span>{{ADDRESS}}</span></div>
+            <div class="info-row"><strong>Flight Number:</strong> <span>{{FLIGHTNUMBER}}</span></div>
+            <div class="info-row"><strong>Seat Type:</strong> <span>{{SEATTYPE}}</span></div>
+            <div class="info-row"><strong>Origin:</strong> <span>{{ORIGIN}}</span></div>
+            <div class="info-row"><strong>Destination:</strong> <span>{{DESTINATION}}</span></div>
+            <div class="info-row"><strong>Departure:</strong> <span>{{DEPARTURE}}</span></div>
+            <div class="info-row"><strong>Flight Duration:</strong> <span>{{DURATION}}</span></div>
+            <div class="info-row"><strong>Arrival:</strong> <span>{{ARRIVAL}}</span></div>
+            <div class="info-row"><strong>Price:</strong> <span>₹${{PRICE}}</span></div>
+
+            <div class="barcode">
+                <img src=`https://api.qrserver.com/v1/create-qr-code/?data=${{PNR}}&size=100x100` />
+                <p>Scan for Check-In</p>
+            </div>
+
+            <div class="footer">
+                This ticket is valid only for the person named above. Please carry a valid ID proof.<br />
+                Boarding closes 45 minutes before departure.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

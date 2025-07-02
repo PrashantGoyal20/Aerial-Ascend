@@ -7,24 +7,24 @@ import { Context } from '../../main';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const Header = () => {
-    const{setIsAuthorized,isAuthorized,user}=useContext(Context)
+const Header = ( {src,height}) => {
+    const{setIsAuthorized,isAuthorized,user,setUser}=useContext(Context)
     const navigate=useNavigate()
+
+    
     const handleLogout=async()=>{
         try {
-            const response = await axios.get(
-              `http://localhost:8000/auth/logout`          
-            );
+            const response = await axios.get(`http://localhost:8000/auth/logout`, { withCredentials: true });
             setIsAuthorized(false);
-            navigate("/login");
+            setUser({})
+            navigate('/login');
           } catch (error) {
-            console.log(error)
             setIsAuthorized(true);
           }
     }
     return (
         <header className='header-container'>
-            <img src='./Logo.png' />
+            <Link to='/'><img src={src} style={{height:height}} /></Link>
             <nav>
                 <ul>
                     <li>
@@ -33,30 +33,30 @@ const Header = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to='/' className='header-link'>
+                        <Link to='/manage' className='header-link'>
                             MANAGE
                         </Link>
                     </li>
-                    {user && user.role=='passenger'?<li>
-                        <Link to='/' className='header-link'>
-                            HELP
-                        </Link>
-                    </li>:<li><Link to='/postFlight' className='header-link'>
+                    {user && user.role=='admin'?<li>
+                        <Link to='/postFlight' className='header-link'>
                             NEW FLIGHT
+                        </Link>
+                    </li>:<li><Link to='/helpDesk' className='header-link'>
+                            HELP
                         </Link></li>}
                     <li>
-                    <Link to='/flights' className='header-link'>
+                    <Link to='/search' className='header-link'>
                             FLIGHTS
                         </Link>
                     </li>
                    
                 </ul>
                 <ul>
-                {user && user._id?<li>
-                    <Link to='/profile' className='header-links' style={{fontSize:"18px",letterSpacing:"2px",marginBottom:"2px",border:"transparent"}}>
-                        {user.name}</Link>
+                {isAuthorized && user?._id ?<li>
+                    <Link to='/profile' className='header-profile-btn' style={{fontSize:"18px",letterSpacing:"2px",marginBottom:"2px",border:"transparent"}}>
+                        {user.name.split('')[0]}</Link>
                 </li>:<></>}
-                {user && user._id?<li>
+                {isAuthorized && user?._id?<li>
                     <Link onClick={handleLogout} className='header-links'><AccountCircleRoundedIcon style={{ marginRight: "6px" }} />
                         LOG OUT</Link>
                 </li>:<li><Link to='/login' className='header-links'><AccountCircleRoundedIcon style={{ marginRight: "6px" }} />

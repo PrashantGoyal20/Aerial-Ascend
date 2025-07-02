@@ -32,81 +32,62 @@ export const postFlight=async(req,res,next)=>{
 
 //UPDATE FLIGHTS
 export const updateFlight=async(req,res,next)=>{
-    const {role}=req.user;
-    if(role=="passenger")
-        return next(new ErrorHandler("User with current role can't post jobs", 401));
+    // const {role}=req.user;
+    // if(role=="passenger")
+    //     return next(new ErrorHandler("User with current role can't post jobs", 401));
 
     const { id } = req.params;
     let flight = await Flights.findById(id);
     if (!flight) {
       return next(new ErrorHandler("OOPS! Error 404 not found.", 404));
     }
-    flight = await Flights.findByIdAndUpdate(id, req.body, {
+    const newflight = await Flights.findByIdAndUpdate(id, { $set: { status: 'Cancelled' } }, {
       new: true,
-      runValidators: true,
-      useFindAndModify: false,
+      runValidators: true
     });
     res.status(200).json({
       success: true,
       message: "Flight Updated!",
+      newflight
     });
 
 
 }
 
-//DELETE FLIGHT
-export const deleteFlight = async (req, res, next) => {
-    const { role } = req.user;
-    if (role === "passenger") {
-      return next(
-        new ErrorHandler("Passengers are not allowed to access this resource.", 400)
-      );
-    }
-    const { id } = req.params;
-    let flight = await Flights.findById(id);
-    if (!flight) {
-      return next(new ErrorHandler("OOPS! Error 404 not found.", 404));
-    }
-    await flight.deleteOne();
-    res.status(200).json({
-      success: true,
-      message: "Flight Deleted!",
-    });
-  };
-
 //VIEW SINGLE FLIGHT
 export const getSingleFlight = async (req, res, next) => {
-    const { id } = req.params;
+
     try {
+    const { id } = req.params;
+    const {seatType}=req.query
       const flight = await Flights.findById(id);
       if (!flight) {
         return next(new ErrorHandler("Flight not found.", 404));
       }
+      const index=flight.seatType.indexOf(seatType)
+      const ans={}
+      //flightNumber,origin,destination,departureTime,arrivalTime,duration,price,originCoordinates,destinationCoordinates,seatType,seatsAvailable
+      ans.flightNumber=flight.flightNumber
+      ans.origin=flight.origin
+      ans.destination=flight.destination
+      ans.departureTime=flight.departureTime
+      ans.arrivalTime=flight.arrivalTime
+      ans.price=flight.price[index]
+      ans.originCoordinates=flight.originCoordinates
+      ans.destinationCoordinates=flight.destinationCoordinates
+      ans.seatType=flight.seatType[index]
+      ans.seatsAvailable=flight.seatsAvailable[index]
       res.status(200).json({
         success: true,
-        flight,
+        ans,
+        index,
       });
     } catch (error) {
       return next(new ErrorHandler(`Invalid ID / CastError`, 404));
+      
     }
   };
 
-//GET OUR FLIGHTS
-
-export const getOurFlight=async(req, res, next)=>{
-const id=req.user;
- try {
-  const flights=await Flights.find({airlineID:id});
-  if(!flights) return next(new ErrorHandler("Flight not found.", 404));
-  res.status(200).json({
-        success: true,
-        flights,
-      });
-
- } catch (error) {
-  return next(new ErrorHandler(`Invalid ID / CastError`, 404));
- }
-}
 
 //GET ALL FLIGHTS
 export const getAllFlights = async (req, res, next) => {
@@ -116,7 +97,8 @@ export const getAllFlights = async (req, res, next) => {
       destination,
       minPrice,
       maxPrice,
-      date
+      arrivalTime,
+      departureTime
     } = req.query;
 
     const query={}
@@ -132,20 +114,42 @@ export const getAllFlights = async (req, res, next) => {
       if (minPrice) query.price.$gte = parseFloat(minPrice);
       if (maxPrice) query.price.$lte = parseFloat(maxPrice);
     }
-    else if(origin && date && date){
-       query.origin = new RegEx(origin, 'i');
+    else if(destination && (departureTime || arrivalTime) ){
       query.destination = new RegExp(destination, 'i');
-      const start = new Date(date);
-      const end = new Date(date);
-      end.setHours(23, 59, 59, 999);
-      query.departureTime = { $gte: start, $lte: end };
+      if(arrivalTime){
+        const arrivalstart = new Date(arrivalTime);
+      const arrivalend = new Date(arrivalTime);
+      console.log(arrivalend)
+      arrivalend.setHours(23, 59, 59, 999);
+      query.arrivalTime = { $gte: arrivalstart, $lte:arrivalend};
+      }
+      else if(departureTime){
+      const departurestart = new Date(departureTime);
+      const departureend = new Date(departureTime);
+      console.log(departureTime)
+      departureend.setHours(23, 59, 59, 999);
+      query.departureTime = { $gte: departurestart, $lte: departureend };
+      }
+      
+      
+    }
+    else if(destination){
+      query.destination = new RegExp(destination, 'i');
     }
     const location={};
     if(destination){
-      const locationObj=await Location.findOne({location:origin})
+    
+      const locationObj=await Location.findOne({location:query.destination})
+      if(Object.keys(location).length!=0){
       location.location=locationObj.location;
-      location.locationPic=locationObj.locationPic;
+      location.locationPic=locationObj.locationPic;}
     }
+
+    const today = new Date();
+    const twoDaysLater = new Date(today);
+    twoDaysLater.setDate(today.getDate() + 2);
+
+
     const flights=await Flights.find(query);
     res.status(200).json({
         success: true,
@@ -155,7 +159,16 @@ export const getAllFlights = async (req, res, next) => {
 
     } catch (error) {
       console.log(error)
-      return next(new ErrorHandler(`Invalid ID / CastError`, 404));
-
     }
+   }
+
+   export const searchLocation=async(req,res,next)=>{
+      const {destination} =req.query;
+      if(!destination) return;
+
+      const location=await Location({location:destination})
+      res.status(200).status({
+        success:true,
+        location
+      })
    }

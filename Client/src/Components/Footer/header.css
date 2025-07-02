@@ -14,11 +14,16 @@
     }
 .header-container img{
     position: relative;
+    cursor: pointer;
     left: 60px;
-    border:1px solid white;
-    height: 160px;
+    /* height: 85px; */
+    /* height: 160px; */
+    border-bottom: 1px solid rgb(190, 190, 6);
     width: 150px;
     z-index: 100;
+}
+.header-container img:hover{
+    box-shadow: 1px 3px rgb(124, 123, 65);
 }
 
 .header-container nav{
@@ -58,4 +63,15 @@
     display: flex;
     justify-content: space-around;
     margin-left: 30px;
+}
+.header-profile-btn{
+    border: 1px solid white!important;
+    padding: 10px!important;
+    width: 25px !important;
+    font-size: 20px!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(53, 162, 209);
+    border-radius: 50%!important;
 }

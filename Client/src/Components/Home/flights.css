@@ -1,3 +1,4 @@
+
 .adminFlight-container{
     top: 0;
     left: 0;
@@ -10,15 +11,19 @@
 .admin-flight-heading{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     position: relative;
-    top:-350px;
+    top:-420px;
+}
+
+.admin-flight-heading p{
+    margin-bottom:2% ;
 }
 .heading-admin-flight{
     color: white;
     font-size: 50px;
-    text-shadow: 2px 2px #c5b419;
+    text-shadow: 4px 4px #6148d1;
     font-style: italic;
     font-weight: 700;
 }
@@ -65,11 +70,13 @@
     width: 600px;
 }
 
+
 .flight-card-duration,
 .flight-card-arrival,
 .flight-card-dep{
     display: flex;
     flex-direction: column;
+    align-items: center;
     
 }
 .flight-card-mid-right{
@@ -93,6 +100,7 @@
     border-top: 1px solid gray;
     transition: ease-in-out 1s ;
 }
+
 .flight-card-seat{
     border: 1px solid black;
     border-radius: 5px;

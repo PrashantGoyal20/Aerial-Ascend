@@ -49,8 +49,8 @@
     text-decoration: underline;
 }
 .footer-mid img{
-    width: 170px;
-    height: 45px;
+    max-width: 170px;
+    max-height: 45px;
     margin-left: 10px;
 }
 .google-play{

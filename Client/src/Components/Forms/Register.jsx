@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../main';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import Header from '../Footer/Header';
 
 const Register = () => {
   const [name, setName] = useState("")
@@ -41,6 +42,8 @@ const Register = () => {
 
   }
   return (
+    <>
+    <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1740937097/x2jgj7ypgocfggr8qyuv.png" height="140px"/>
     <div className='register-cover'>
       <div className='register-box'>
         <img src='Logo_White.png' />
@@ -65,6 +68,8 @@ const Register = () => {
       </div>
 
     </div>
+    <Footer/>
+    </>
   )
 }
 

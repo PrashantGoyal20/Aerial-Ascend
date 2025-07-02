@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useContext} from 'react'
 import "./postflight.css"
 import Map from './Map';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -12,10 +12,15 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../main';
+import Footer from '../Footer/Footer';
+import Header from '../Footer/Header';
 
 const PostFlight = () => {
 
-    const [flightNumber, setFlightNumber] = useState();
+    const{setIsAuthorized,isAuthorized,user}=useContext(Context)
+
+    const [flightNumber, setFlightNumber] = useState("");
     const [origin, setOrigin] = useState("")
     const [destination, setDestination] = useState("")
     const [departureTime, setDepartureTime] = useState(null)
@@ -42,7 +47,9 @@ const PostFlight = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-
+        if(!isAuthorized){
+             navigate('/login')
+        }
         setTimeout(() => {
             setHeading1({ h1: "Start a New Journey", h2: "@Please add each entry carefully because no further changes cna be made once flight details are posted" })
             setLoading(false)
@@ -76,10 +83,10 @@ const PostFlight = () => {
     const addPair = () => {
         setPairs([...pairs, { val1: '', val2: '', val3: '' }]);
     }
-    const handleData = async(e) => {
-        e.preventDefault()
+
+
+    const preprocessingData = async () => {
         try {
-          
             const start = dayjs(departureDate)
                 .hour(dayjs(departureTime).hour())
                 .minute(dayjs(departureTime).minute());
@@ -94,34 +101,62 @@ const PostFlight = () => {
             const minutes = diffMinutes % 60;
             const durationStr = `${hours} hours ${minutes} minutes`;
             const departformat = start.format('HH:mm MMMM,DD,YYYY,dddd')
-            setDepartureDateTime(departformat)
+            // setDepartureDateTime(departformat)
             const arrivalformat = end.format('HH:mm MMMM,DD,YYYY,dddd')
-            setArrivalDateTime(arrivalformat)
-            setDuration(durationStr);
-            setSeatType(pairs.map((seat) => seat.val1))
-            setPrice(pairs.map((price) => price.val2))
-            setSeatAvailable(pairs.map(seats => seats.val3))
+            // setArrivalDateTime(arrivalformat)
+            // setDuration(durationStr);
+            const seatT=pairs.map((seat) => seat.val1)
+            const seatP=pairs.map((price) => price.val2)
+            const seatA=pairs.map(seats => seats.val3)
 
-
+            let originCoord=[]
+            let destCoord=[]
             if (!isNaN(originCoordY) && !isNaN(originCoordX) && !isNaN(destCoordY) && !isNaN(destCoordX)) {
-                setOriginalCoordinates([parseFloat(originCoordX), parseFloat(originCoordY)])
-                setDestinationCoordinates([parseFloat(destCoordX), parseFloat(destCoordY)])
+
+                originCoord=[parseFloat(originCoordX), parseFloat(originCoordY)]
+                destCoord=[parseFloat(destCoordX), parseFloat(destCoordY)]
             } else {
                 alert('Please enter valid numeric coordinates.');
             }
-            handleSubmit()
+
+            return { flightNumber:flightNumber,
+                     origin,
+                     destination,
+                     departureTime:departformat,
+                     arrivalTime:arrivalformat,
+                     duration:durationStr,
+                     price: seatP,
+                     originCoordinates:originCoord,
+                     destinationCoordinates: destCoord,
+                     seatType:seatT, 
+                     seatsAvailable:seatA 
+                    }
+
 
         } catch (error) {
             console.log(error)
         }
     }
 
-    const handleSubmit = async () => {
-        
+    const handleData = async (e) => {
+        e.preventDefault();
         try {
-            console.log({ flightNumber, origin, destination, departureDateTime, arrivalDateTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable })
+            const data = await preprocessingData()
+            // console.log(data)
+            await handleSubmit(data)
+        } catch (error) {
+            console.log(error)
+        }
 
-            const response = await axios.post(`http://localhost:8000/flights/postFlight`, { flightNumber, origin, destination, departureDateTime, arrivalDateTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable }, {
+    }
+
+    const handleSubmit = async (data) => {
+
+        try {
+            
+            console.log(data)
+            // console.log({ flightNumber, origin, destination, departureDateTime, arrivalDateTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable })
+            const response = await axios.post(`http://localhost:8000/flights/postFlight`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -129,15 +164,17 @@ const PostFlight = () => {
             })
 
             toast.success(response.data.message)
-            navigate('/flights')
+            navigate(`/flights?destination=${data.destination}&origin=${data.origin}`)
 
         } catch (error) {
             console.log(error)
-            toast.error(error)
+            toast.error(error.response.data.message)
         }
     }
 
     return (
+        <>
+        <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" height="85px"/>
         <div className='post-flight-container'>
             {!loading ? <div className='post-flight-heading' style={{}}><span>{heading1.h1}</span>
                 <p>{heading1.h2}</p>
@@ -145,7 +182,7 @@ const PostFlight = () => {
             <form onSubmit={handleData}>
                 <div className='coord'>
                     <label >Flight Number</label>
-                    <input type='number' name='flight_number' value={flightNumber} onChange={(e) => setFlightNumber(e.target.value)} placeholder='Mention Flight Number' />
+                    <input type='text' name='flight_number' value={flightNumber} onChange={(e) => setFlightNumber(e.target.value)} placeholder='Mention Flight Number' />
                 </div>
                 <div className='coord'>
                     <label >Boarding Location</label>
@@ -162,11 +199,12 @@ const PostFlight = () => {
                 <MobileTimePicker sx={{ background: "white" }} label="Choose time of Arrival" defaultValue={dayjs('2022-04-17T15:30')} value={arrivalTime} onChange={(value) => setArrivalTime(dayjs(value))} />
                 <div className='post-flight-seats'>
                     {pairs.map((pair, index) => (
-                        <div className='seat-choosers' onChange={(e) => handleChange(index, 'val1', e.target.value)}>
-                            <select value={pairs.val1} >
+                        <div className='seat-choosers' >
+                            <select value={pairs.val1} onChange={(e) => handleChange(index, 'val1', e.target.value)}>
+                            <option>None</option>
                                 <option>Economy</option>
                                 <option>Premium Economy</option>
-                                <option>Buisness</option>
+                                <option>Business</option>
                                 <option>First</option>
                             </select>
                             <div className='coord'>
@@ -246,6 +284,8 @@ const PostFlight = () => {
 
 
         </div>
+        <Footer/>
+        </>
     )
 }
 

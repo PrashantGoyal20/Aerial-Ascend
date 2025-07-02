@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 .France{
-    background-image: url('France-2.jpg');
+    background-image: url('https://skysafar.in/wp-content/uploads/2024/08/Paris-5.png');
     background-size: cover;
     transition: .5s ease;
     color: rgb(224, 223, 202);
@@ -29,12 +29,12 @@
     
 }
 .France:hover{
-    background-image: url('France-1.jpg');
+    background-image: url('https://hips.hearstapps.com/hmg-prod/images/sunset-la-conciergerie-paris-france-royalty-free-image-1575853945.jpg');
     background-size: cover;
     transition: 1s ease;
 }
 .US{
-    background-image: url('America-1.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/960px-New_york_times_square-terabass.jpg');
     background-size: cover;
     color: rgb(224, 223, 202);
     font-size: 45px;
@@ -42,26 +42,27 @@
     transition: .5s ease;
 }
 .US:hover{
-    background-image: url('America-2.jpg');
+    background-image: url('https://www.holidayhypermarket.co.uk/wp-content/uploads/2019/04/HH_NEWYORK_shutterstock_1740358463.png');
     background-size: cover;
     transition: 1s ease;
 }
 
 .Japan{
-    background-image: url('Japan-1.jpg');
-    background-size: cover;
+    background-image: url('https://media.tacdn.com/media/attractions-splice-spp-674x446/11/f8/29/20.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
     color: rgb(224, 223, 202);
     font-size: 45px;
     text-shadow: 2px 2px black;
     transition: .5s ease;
 }
 .Japan:hover{
-    background-image: url('Japan-2.jpg');
+    background-image: url('https://plus.unsplash.com/premium_photo-1661963745503-8b3a86b8c2b1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG9ra2FpZG98ZW58MHx8MHx8fDA%3D');
     background-size: cover;
     transition: 1s ease;
 }
 .Austrailia{
-    background-image: url('Austrailia-1.jpg');
+    background-image: url('https://www.pelago.com/img/destinations/sydney/hero-image-xlarge.jpg');
     background-size: cover;
     color: rgb(224, 223, 202);
     font-size: 45px;
@@ -69,7 +70,7 @@
     transition: .5s ease;
 }
 .Austrailia:hover{
-    background-image: url('Austrailia-2.jpg');
+    background-image: url('https://www.melbourne.crowneplaza.com/wp-content/uploads/2021/09/footer_meetings-events.webp');
     background-size: cover;
     transition: 1s ease;
 }
@@ -81,7 +82,7 @@
     align-items: center;
     height: 500px;
     width: 100%;
-    background-image: url("Trip-4.jpg");
+    background-image: url("https://static.vecteezy.com/system/resources/previews/031/734/416/large_2x/happy-family-playing-on-the-beach-at-sunset-concept-of-friendly-family-happy-family-jumping-together-on-the-beach-silhouette-ai-generated-free-photo.jpg");
     background-size: cover;
 }
 

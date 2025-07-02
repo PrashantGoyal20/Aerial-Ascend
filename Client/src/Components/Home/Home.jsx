@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom'
 import Flights from './Flights'
 import SearchBar from './SearchBar'
 import Banner from './Banner'
+import Footer from '../Footer/Footer'
+import Header from '../Footer/Header'
 
 const Home = () => {
     return (
+        <>
+        <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1740937097/x2jgj7ypgocfggr8qyuv.png" height="140px"/>
         <div className='home-container'>
        
             <div className='home-card'>
@@ -40,12 +44,14 @@ const Home = () => {
                 </div>
             </div>
             <div className='home-content'>
-            <SearchBar/>
+            <SearchBar position=''/>
             
 
             </div>
             <Banner/>
         </div>
+        <Footer/>
+        </>
     )
 }
 
