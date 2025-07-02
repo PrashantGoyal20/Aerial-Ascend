@@ -25,10 +25,10 @@ const client = new QdrantClient({
     apiKey: QDRANT_API_KEY
 })
 
-const HF_HEADERS = {
-    Authorization: `Bearer ${process.env.HF_API_KEY}`,
-    "Content-Type": "application/json",
-};
+// const HF_HEADERS = {
+//     Authorization: `Bearer ${process.env.HF_API_KEY}`,
+//     "Content-Type": "application/json",
+// };
 
 export async function upsertToQdrant(id, vector, payload) {
     const collections = await client.getCollections();
