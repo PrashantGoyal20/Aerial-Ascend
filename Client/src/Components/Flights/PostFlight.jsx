@@ -21,8 +21,8 @@ const PostFlight = () => {
     const{setIsAuthorized,isAuthorized,user}=useContext(Context)
 
     const [flightNumber, setFlightNumber] = useState("");
-    const [origin, setOrigin] = useState("")
-    const [destination, setDestination] = useState("")
+    const [origin, setOrigin] = useState("Delhi")
+    const [destination, setDestination] = useState("Delhi")
     const [departureTime, setDepartureTime] = useState(null)
     const [departureDate, setDepartureDate] = useState(null)
     const [arrivalTime, setArrivalTime] = useState(null)
@@ -31,8 +31,8 @@ const PostFlight = () => {
     const [departureDateTime, setDepartureDateTime] = useState('')
     const [duration, setDuration] = useState('')
     const [price, setPrice] = useState([])
-    const [originCoordinates, setOriginalCoordinates] = useState([])
-    const [destinationCoordinates, setDestinationCoordinates] = useState('')
+    const [originCoordinates, setOriginalCoordinates] = useState([17.2403,78.4294])
+    const [destinationCoordinates, setDestinationCoordinates] = useState([17.2403,784294])
     const [seatType, setSeatType] = useState([])
     const [seatsAvailable, setSeatAvailable] = useState([])
 
