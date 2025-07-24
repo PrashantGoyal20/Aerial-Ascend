@@ -27,4 +27,5 @@ Server/.env.*.local
 *.sln
 *.sw?
 .env/
-./.env/
+Server/.env
+Client/.env
