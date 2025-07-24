@@ -172,7 +172,7 @@ const Flights = () => {
                                                     <div className='flight-card-seat'>
                                                         <p>{seat}</p>
                                                         <span>INR <span>{element.price[index]}</span></span>
-                                                        <button onClick={(e) => handleBooking(seat, element._id)}>SELECT</button>
+                                                        {element.seatsAvailable[index]>=0?<button onClick={(e) => handleBooking(seat, element._id)}><span>{element.seatsAvailable[index]}</span></button>:<>No Ticket</>}
                                                     </div>
                                                 )
                                             })}

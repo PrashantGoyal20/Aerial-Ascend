@@ -32,9 +32,9 @@ export const postFlight=async(req,res,next)=>{
 
 //UPDATE FLIGHTS
 export const updateFlight=async(req,res,next)=>{
-    // const {role}=req.user;
-    // if(role=="passenger")
-    //     return next(new ErrorHandler("User with current role can't post jobs", 401));
+    const {role}=req.user;
+    if(role=="passenger")
+        return next(new ErrorHandler("User with current role can't post jobs", 401));
 
     const { id } = req.params;
     let flight = await Flights.findById(id);

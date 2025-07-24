@@ -86,10 +86,15 @@ const BookTicket = () => {
         image: 'https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png',
         handler: async function (response) {
           try {
-
-            const paymentRes = await axios.post(`${server}/passenger/save-passenger/${id}`, {
+            console.log({
               name: name, email: email, phone: phone, age: age, address: address, flightNumber: flight.flightNumber,
               price: flight.price, seatType: flight.seatType, origin: flight.origin, destination: flight.destination,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature})
+            const paymentRes = await axios.post(`${server}/passenger/save-passenger/${id}${location.search}`, {
+              name: name, email: email, phone: phone, age: age, address: address, flightNumber: flight.flightNumber,
+              price: flight.price, origin: flight.origin, destination: flight.destination,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,

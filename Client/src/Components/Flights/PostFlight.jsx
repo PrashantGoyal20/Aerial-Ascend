@@ -21,8 +21,8 @@ const PostFlight = () => {
     const{setIsAuthorized,isAuthorized,user}=useContext(Context)
 
     const [flightNumber, setFlightNumber] = useState("");
-    const [origin, setOrigin] = useState("Delhi")
-    const [destination, setDestination] = useState("Delhi")
+    const [origin, setOrigin] = useState("")
+    const [destination, setDestination] = useState("")
     const [departureTime, setDepartureTime] = useState(null)
     const [departureDate, setDepartureDate] = useState(null)
     const [arrivalTime, setArrivalTime] = useState(null)
@@ -31,8 +31,8 @@ const PostFlight = () => {
     const [departureDateTime, setDepartureDateTime] = useState('')
     const [duration, setDuration] = useState('')
     const [price, setPrice] = useState([])
-    const [originCoordinates, setOriginalCoordinates] = useState([parseFloat(17.2403),parseFloat(78.4294)])
-    const [destinationCoordinates, setDestinationCoordinates] = useState([parseFloat(17.2403),parseFloat(78.4294)])
+    const [originCoordinates, setOriginalCoordinates] = useState([])
+    const [destinationCoordinates, setDestinationCoordinates] = useState([])
     const [seatType, setSeatType] = useState([])
     const [seatsAvailable, setSeatAvailable] = useState([])
 
@@ -60,14 +60,20 @@ const PostFlight = () => {
 
     const handleShowMap = () => {
 
-        console.log(originCoordinates)
-        if (!isNaN(originCoordY) && !isNaN(originCoordX) && !isNaN(destCoordY) && !isNaN(destCoordX)) {
+    try {
+        if (!isNaN(originCoordY) && !isNaN(originCoordX) && !isNaN(destCoordY) && !isNaN(destCoordX) && origin && destination) {
             setOriginalCoordinates([parseFloat(originCoordX), parseFloat(originCoordY)])
             setDestinationCoordinates([parseFloat(destCoordX), parseFloat(destCoordY)])
             setMap(true);
-        } else {
+        } else if(isNaN(originCoordY) || isNaN(originCoordX) || isNaN(destCoordY) || isNaN(destCoordX)){
             alert('Please enter valid numeric coordinates.');
-        }
+            setMap(false)
+            return
+        }  
+    } catch (error) {
+        console.log(error)
+    }
+      
     };
 
     const handleChange = (index, field, value) => {
@@ -111,7 +117,7 @@ const PostFlight = () => {
 
             let originCoord=[]
             let destCoord=[]
-            if (!isNaN(originCoordY) && !isNaN(originCoordX) && !isNaN(destCoordY) && !isNaN(destCoordX)) {
+            if (!isNaN(originCoordY) && !isNaN(originCoordX) && !isNaN(destCoordY) && !isNaN(destCoordX) ) {
 
                 originCoord=[parseFloat(originCoordX), parseFloat(originCoordY)]
                 destCoord=[parseFloat(destCoordX), parseFloat(destCoordY)]

@@ -16,9 +16,6 @@ L.Icon.Default.mergeOptions({
 });
 
 const Map = ({point1,point2,origin,dest}) => {
-  // const point1 = [0,0]; // New Delhi
-  // const point1=parseFloat(p1)
-  // const point2 = [17.2403, 78.4294]; // Mumbai
 
   return (
     <div className='map'>

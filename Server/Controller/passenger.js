@@ -10,17 +10,23 @@ import fs from "fs"
 
 export const postPassenger=async (req,res,next)=>{
     const {id}=req.params;
+    const {seatType}=req.query
     const flight = await Flights.findById(id);
           if (!flight) {
             return next(new ErrorHandler("Flight not found.", 404));
           }
-    const {name,email,phone,age,address,flightNumber,price,seatType,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature}=req.body;
+    const {name,email,phone,age,address,flightNumber,price,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature}=req.body;
 
  if (!name || !email || !phone || !age || !address || !price || !origin || !destination
     || !flightNumber || !seatType ||  !razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
     return next(new ErrorHandler("Please provide all details.", 400));
   }
 
+  let index=flight.seatType.indexOf(seatType)
+  let bookingPrice=price[index]
+await Flights.findOneAndUpdate({ _id: id, [`seatsAvailable.${index}`]: { $gt: 0 } },
+  { $inc: { [`seatsAvailable.${index}`]: -1 } },
+  { new: true })
   const signature = razorpay_order_id + "|" + razorpay_payment_id;
   const expectedSignature = crypto
     .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -29,8 +35,9 @@ export const postPassenger=async (req,res,next)=>{
 
     if(expectedSignature==razorpay_signature){
       const passenger = await Passenger.create({
-          name,email,phone,age,address,airlineID:id,flightNumber,price,seatType,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature
+          name,email,phone,age,address,airlineID:id,flightNumber,price:bookingPrice,seatType,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature
   });
+  
   res.status(200).json({
     success: true,
     message: "Application Submitted!",
