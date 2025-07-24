@@ -70,7 +70,7 @@ const BookTicket = () => {
           return
       }
 
-      const { data: order } = await axios.post(`http://localhost:8000/passenger/create-order`, { amount: flight.price[index] }, {
+      const { data: order } = await axios.post(`${server}/passenger/create-order`, { amount: flight.price[index] }, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -87,7 +87,7 @@ const BookTicket = () => {
         handler: async function (response) {
           try {
 
-            const paymentRes = await axios.post(`${process.env.server}/passenger/save-passenger/${id}`, {
+            const paymentRes = await axios.post(`${server}/passenger/save-passenger/${id}`, {
               name: name, email: email, phone: phone, age: age, address: address, flightNumber: flight.flightNumber,
               price: flight.price, seatType: flight.seatType, origin: flight.origin, destination: flight.destination,
               razorpay_payment_id: response.razorpay_payment_id,
