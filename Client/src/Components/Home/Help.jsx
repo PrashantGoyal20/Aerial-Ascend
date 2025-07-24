@@ -78,7 +78,7 @@ const Help = () => {
   const handleSubmit = async (ques) => {
     try {
 
-      await axios.post("http://localhost:8000/chat/question",
+      await axios.post(`${server}/chat/question`,
         { "query": ques }, {
         headers: {
           "Content-Type": "application/json",
