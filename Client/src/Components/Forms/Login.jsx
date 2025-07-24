@@ -9,7 +9,9 @@ import axios from "axios"
 import Header from '../Footer/Header';
 import Footer from '../Footer/Footer';
 
+
 const Login = () => {
+  const server=import.meta.env.VITE_API_URL
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const {setIsAuthorized, setUser } = useContext(Context)
@@ -17,7 +19,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:8000/auth/login",
+      const { data } = await axios.post(`${server}/auth/login`,
         { email, password}, {
         headers: {
           "Content-Type": "application/json",

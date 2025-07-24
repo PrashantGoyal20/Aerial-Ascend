@@ -7,6 +7,7 @@ import Loader from '../Footer/Loader'
 import Footer from '../Footer/Footer'
 
 const PassengerDetails = () => {
+    const server=import.meta.env.VITE_API_URL
     const [passenger,setPassenger]=useState({})
     const [load,setLoad]=useState(true)
     const [flight,setFlight]=useState({})
@@ -18,7 +19,7 @@ const PassengerDetails = () => {
 
     useEffect(()=>{
         const handleInfo=async()=>{
-            await axios.get(`http://localhost:8000/passenger/search-passeneger${location.search}`).then(
+            await axios.get(`${server}/passenger/search-passeneger${location.search}`).then(
                 (res)=>{
                     console.log(res.data)
                     setPassenger(res.data?.passenger)

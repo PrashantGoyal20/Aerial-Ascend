@@ -12,6 +12,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const BookTicket = () => {
+  const server=import.meta.env.VITE_API_URL
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState()
@@ -41,7 +42,7 @@ const BookTicket = () => {
     }
     const handleInitial = async () => {
 
-      await axios.get(`http://localhost:8000/flights/flightDetails/${id}${location.search}`, { withCredentials: true })
+      await axios.get(`${server}/flights/flightDetails/${id}${location.search}`, { withCredentials: true })
         .then((res) => {
           setFlight(res.data.flight)
           setIndex(res.data.index)
@@ -86,7 +87,7 @@ const BookTicket = () => {
         handler: async function (response) {
           try {
 
-            const paymentRes = await axios.post(`http://localhost:8000/passenger/save-passenger/${id}`, {
+            const paymentRes = await axios.post(`${process.env.server}/passenger/save-passenger/${id}`, {
               name: name, email: email, phone: phone, age: age, address: address, flightNumber: flight.flightNumber,
               price: flight.price, seatType: flight.seatType, origin: flight.origin, destination: flight.destination,
               razorpay_payment_id: response.razorpay_payment_id,

@@ -17,7 +17,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Footer/Header';
 
 const PostFlight = () => {
-
+    const server=import.meta.env.VITE_API_URL
     const{setIsAuthorized,isAuthorized,user}=useContext(Context)
 
     const [flightNumber, setFlightNumber] = useState("");
@@ -156,7 +156,7 @@ const PostFlight = () => {
             
             console.log(data)
             // console.log({ flightNumber, origin, destination, departureDateTime, arrivalDateTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable })
-            const response = await axios.post(`http://localhost:8000/flights/postFlight`, data, {
+            const response = await axios.post(`${server}/postFlight`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 },

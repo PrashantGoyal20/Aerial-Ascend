@@ -8,13 +8,14 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const Header = ( {src,height}) => {
+    const server=import.meta.env.VITE_API_URL
     const{setIsAuthorized,isAuthorized,user,setUser}=useContext(Context)
     const navigate=useNavigate()
 
     
     const handleLogout=async()=>{
         try {
-            const response = await axios.get(`http://localhost:8000/auth/logout`, { withCredentials: true });
+            const response = await axios.get(`${server}/auth/logout`, { withCredentials: true });
             setIsAuthorized(false);
             setUser({})
             navigate('/login');

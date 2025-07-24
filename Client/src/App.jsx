@@ -25,12 +25,14 @@ import PassengerDetails from './Components/Flights/PassengerDetails.jsx'
 
 
 const App = () => {
+  const server=import.meta.env.VITE_API_URL
   const {isAuthorized,setIsAuthorized,user,setUser}=useContext(Context)
   useEffect(()=>{
     const fetchUser=async()=>{
+      if(!isAuthorized) return
       try {
         const response = await axios.get(
-        "http://localhost:8000/auth/getuser",{
+        `${server}/auth/getuser`,{
           withCredentials: true,
         }
       );

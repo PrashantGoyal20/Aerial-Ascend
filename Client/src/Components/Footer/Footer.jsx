@@ -50,8 +50,8 @@ const Footer = () => {
                 <div><p>Aerial Ascend App</p>
                     <div>Book and manage your flights on the go.</div>
                     <div className='google-play'>
-                        <img src='./App-Store.jpg' />
-                        <img src='./Google-Play.jpg' />
+                        <img src='https://res.cloudinary.com/dc728fl24/image/upload/v1753343072/App-Store_qeixbc.jpg' />
+                        <img src='https://res.cloudinary.com/dc728fl24/image/upload/v1753343072/Google-Play_uajiro.jpg' />
                     </div>
 
                 </div>

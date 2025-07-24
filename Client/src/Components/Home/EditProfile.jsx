@@ -8,6 +8,7 @@ import { useContext, useState, useRef } from 'react'
 import axios from 'axios';
 
 const EditProfile = () => {
+    const server=import.meta.env.VITE_API_URL
     const { setIsAuthorized, isAuthorized, user } = useContext(Context)
     const [name, setName] = useState("");
     const [phone, setPhone] = useState();
@@ -29,7 +30,7 @@ const EditProfile = () => {
             data.append('name', name);
             data.append('phone', phone);
             if (file) data.append('profilePic', file);
-            const update=await axios.post(`http://localhost:8000/auth/updateProfile`,data)
+            const update=await axios.post(`${server}/auth/updateProfile`,data)
             console.log(update)
             
         } catch (error) {

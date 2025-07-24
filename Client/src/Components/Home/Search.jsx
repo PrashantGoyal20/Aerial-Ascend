@@ -9,12 +9,13 @@ import axios from 'axios'
 import Loader from '../Footer/Loader'
 
 const Search = () => {
+    const server=import.meta.env.VITE_API_URL
     const query=useLocation()
     const [loading,setLoading]=useState(true)
     const [position,setPosition]=useState({})
     useEffect(()=>{
         const handleLocation=async()=>{
-            const location = await axios.get(`http://localhost:8000/flights/getallflights${query.search}`)
+            const location = await axios.get(`${server}/flights/getallflights${query.search}`)
            
         setPosition(location.data.location)
         setLoading(false)

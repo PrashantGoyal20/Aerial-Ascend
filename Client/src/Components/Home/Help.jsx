@@ -8,13 +8,14 @@ import { useRef } from 'react';
 
 
 const Help = () => {
+  const server=import.meta.env.VITE_API_URL
   // const [question, setQuestion] = useState('')
   const [ans, setAns] = useState([]);
   const [load, setLoad] = useState(true)
   const keyRef = useRef(null)
   useEffect(() => {
     const handleStartConv = async () => {
-      await axios.post('http://localhost:8000/chat/start-chat', { start: "start" },
+      await axios.post(`${server}/chat/start-chat`, { start: "start" },
         {
           headers: {
             "Content-Type": "application/json",

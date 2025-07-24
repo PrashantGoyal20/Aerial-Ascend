@@ -16,6 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 
 const Flights = () => {
+    const server=import.meta.env.VITE_API_URL
     const [flights, setFlights] = useState([]);
     const [position, setPosition] = useState([]);
     const [load, setLoad] = useState(true)
@@ -31,7 +32,7 @@ const Flights = () => {
 
     useEffect(() => {
         const fetchFlights = async () => {
-            await axios.get(`http://localhost:8000/flights/getallflights${location.search}`)
+            await axios.get(`${server}/flights/getallflights${location.search}`)
                 .then((flight) => {
                     setFlights(flight.data.flights)
                     setPosition(flight.data.location)
@@ -52,7 +53,7 @@ const Flights = () => {
     const handleCancel = async (e, id) => {
         e.preventDefault()
         try {
-            await axios.get(`http://localhost:8000/flights/update-flight/${id}`)
+            await axios.get(`${server}/flights/update-flight/${id}`)
                 .then(
                     toggleCancel(id)
                 )

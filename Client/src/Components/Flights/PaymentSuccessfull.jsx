@@ -6,6 +6,7 @@ import './paymentSuccess.css'
 import Loader from '../Footer/Loader'
 
 const PaymentSuccessfull = () => {
+    const server=import.meta.env.VITE_API_URL
     const [passenger,setPassenger]=useState({})
     const [flight,setFlight]=useState({})
     const [load,setLoad]=useState(true)
@@ -14,7 +15,7 @@ const PaymentSuccessfull = () => {
 
     useEffect(()=>{
         const handleData=async()=>{
-            const res=await axios.get(`http://localhost:8000/passenger/passengerInfo/${id}`)
+            const res=await axios.get(`${server}/passenger/passengerInfo/${id}`)
             setFlight(res.data.flight)
             setPassenger(res.data.passenger)
             setLoad(false)

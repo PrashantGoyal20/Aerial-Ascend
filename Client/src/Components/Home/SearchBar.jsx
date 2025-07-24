@@ -67,11 +67,12 @@ const SearchBar = ({ position }) => {
     const pannel1Ref = useRef()
     const pannel2Ref = useRef()
     const navigate = useNavigate()
-    // const { isAuthorized, setIsAuthorized } = useContext(Context)
+    const { isAuthorized, setIsAuthorized } = useContext(Context)
 
 
     const handlePannel1 = () => {
         try {
+            if(!isAuthorized) navigate('/login')
             if (!origin || !destination) {
                 pannel1Ref.current.classList.replace("error-search-hidden", "error-search-visible")
                 setTimeout(() => pannel1Ref.current.classList.replace("error-search-visible", "error-search-hidden"), 2000)
@@ -86,6 +87,7 @@ const SearchBar = ({ position }) => {
 
     const handlePannel2 = () => {
         try {
+            if(!isAuthorized) navigate('/login')
             if (!pnr || (!departuredate && !arrivaldate)) {
                 pannel2Ref.current.classList.replace("error-search-hidden", "error-search-visible")
                 setTimeout(() => pannel2Ref.current.classList.replace("error-search-visible", "error-search-hidden"), 2000)

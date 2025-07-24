@@ -7,6 +7,7 @@ import axios from 'axios';
 import Header from '../Footer/Header';
 
 const Register = () => {
+  const server=import.meta.env.VITE_API_URL
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -18,7 +19,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("http://localhost:8000/auth/register",
+      const { data } = await axios.post(`${server}/auth/register`,
         { name, email, phone, password, role }, {
         headers: {
           "Content-Type": "application/json",
