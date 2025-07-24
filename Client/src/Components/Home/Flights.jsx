@@ -31,10 +31,13 @@ const Flights = () => {
 
     useEffect(() => {
         const fetchFlights = async () => {
-            const flight = await axios.get(`http://localhost:8000/flights/getallflights${location.search}`)
-            setFlights(flight.data.flights)
-            setPosition(flight.data.location)
-            setLoad(false)
+            await axios.get(`http://localhost:8000/flights/getallflights${location.search}`)
+                .then((flight) => {
+                    setFlights(flight.data.flights)
+                    setPosition(flight.data.location)
+                    setLoad(false)
+                })
+
 
         };
         fetchFlights();
@@ -142,7 +145,7 @@ const Flights = () => {
                                                 <>
                                                     <div style={{ borderRadius: "10px", border: "transparent", color: "white", backgroundImage: "linear-gradient(red,pink)", padding: "10px" }}>Cancelled</div>
                                                 </>
-                                                : 
+                                                :
                                                 <>
                                                     {isAuthorized && user?.role === 'admin' && <> {cancel === element._id ? <div style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
                                                         <button style={{ marginRight: "10px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px", border: "transparent", color: "white", background: "red", cursor: "pointer", padding: "10px" }} onClick={(e) => handleCancel(e, element._id)}><CheckIcon style={{ color: "white" }} /> Yes Cancel</button>

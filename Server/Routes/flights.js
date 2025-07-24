@@ -9,7 +9,7 @@ router.post('/postFlight',authenticator,postFlight);
 router.get('/update-flight/:id',updateFlight)
 router.post('/postlocation',locationPost);
 router.get('/getallflights',getAllFlights);
-router.get('/flightDetails/:id',authenticator,getSingleFlight);
+router.get('/flightDetails/:id',getSingleFlight);
 router.get('/searchLocation',searchLocation)
 
 export default router;

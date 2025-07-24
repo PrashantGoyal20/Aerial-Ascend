@@ -66,21 +66,11 @@ export const getSingleFlight = async (req, res, next) => {
       }
       const index=flight.seatType.indexOf(seatType)
       const ans={}
-      //flightNumber,origin,destination,departureTime,arrivalTime,duration,price,originCoordinates,destinationCoordinates,seatType,seatsAvailable
-      ans.flightNumber=flight.flightNumber
-      ans.origin=flight.origin
-      ans.destination=flight.destination
-      ans.departureTime=flight.departureTime
-      ans.arrivalTime=flight.arrivalTime
-      ans.price=flight.price[index]
-      ans.originCoordinates=flight.originCoordinates
-      ans.destinationCoordinates=flight.destinationCoordinates
-      ans.seatType=flight.seatType[index]
-      ans.seatsAvailable=flight.seatsAvailable[index]
+      
       res.status(200).json({
         success: true,
-        ans,
-        index,
+        flight,
+        index: index,
       });
     } catch (error) {
       return next(new ErrorHandler(`Invalid ID / CastError`, 404));
