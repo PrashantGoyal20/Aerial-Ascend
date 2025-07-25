@@ -5,6 +5,9 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 import './paymentSuccess.css'
 import Loader from '../Footer/Loader'
 import Footer from '../Footer/Footer'
+import { Context } from '../../main'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const PassengerDetails = () => {
     const server=import.meta.env.VITE_API_URL
@@ -13,26 +16,38 @@ const PassengerDetails = () => {
     const [flight,setFlight]=useState({})
     const [msg,setMsg]=useState({})
    const location=useLocation()
+   const {isAuthorized}=useContext(Context)
+   const navigate=useNavigate()
    
     const src=`https://api.qrserver.com/v1/create-qr-code/?data=${passenger?._id}&size=100x100`
 
 
     useEffect(()=>{
+        if(!isAuthorized){
+            navigate('/login')
+        } 
         const handleInfo=async()=>{
             await axios.get(`${server}/passenger/search-passeneger${location.search}`).then(
                 (res)=>{
-                    console.log(res.data)
                     setPassenger(res.data?.passenger)
                     setFlight(res.data?.flight)
                     setMsg(res.data?.message)
                     setLoad(false)
 
                 }
-            )
+            ).catch((error)=>{
+                setMsg(error.response.message)
+            })
         }
         handleInfo()
         
     },[])
+
+    const cancelTicket=async()=>{
+        await axios.get(`${server}/passenger/cancelTicket/${passenger._id}`,{withCredentials:true}).then(()=>{
+            navigate('/myBookings')
+        })
+    }
 
   return (
     <>
@@ -64,6 +79,7 @@ const PassengerDetails = () => {
             <div class="info-row"><strong>Flight Duration:</strong> <span>{flight.duration}</span></div>
             <div class="info-row"><strong>Arrival:</strong> <span>{flight.arrivalTime}</span></div>
             <div class="info-row"><strong>Price:</strong> <span>₹{passenger.price}</span></div>
+            <div class="info-row"><strong>Status:</strong> <span>{passenger.status}</span></div>
 
             <div class="barcode">
                 <img src={src} />
@@ -89,6 +105,8 @@ const PassengerDetails = () => {
 
         <Link style={{textDecoration:"none", background:"blue",color:"white",padding:"20px", marginTop:"30px"}} to='/'>Back to Homepage</Link>
     </div>}
+
+    {passenger.status==='Cancelled'?<></>:<button className='Cancel-ticket' onClick={cancelTicket}>Cancel Ticket</button>}
     
 
     </>}

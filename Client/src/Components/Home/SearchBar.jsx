@@ -7,52 +7,8 @@ import FlightIcon from '@mui/icons-material/Flight';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EastIcon from '@mui/icons-material/East';
 import { Context } from '../../main';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import { InputAdornment } from '@mui/material';
-
-
-// const CustomInput = styled(TextField)(({ theme }) => ({
-//     '& .MuiInputBase-root': {
-//         border: 'none',
-//         borderRadius: 0,
-//         backgroundColor: 'transparent',
-//         padding: '4px 0',
-//         height:"40px"
-//     },
-//     '& .MuiInputBase-input': {
-//         border: 'none',
-//         outline: 'none',
-//         padding: '6px 0',
-//         fontSize: 16,
-//         borderBottom: 'none',
-//     },
-//     '& .MuiInputBase-input:hover':{
-//         border:"none"
-//     },
-//     '& .MuiInput-underline:before': {
-//         borderBottom: 'none',
-//     },
-//     '& .MuiInput-underline:before:hover': {
-//         borderBottom: 'none',
-//     },
-//     '& .MuiInput-underline:after': {
-//         borderBottom: 'none',
-//     },
-//     '& .MuiInputLabel-root': {
-//         display: 'none',
-//     },
-//     '& .MuiSvgIcon-root': {
-//         backgroundColor: 'white',
-//         borderRadius: '50%',
-//         padding: '4px',
-//     },
-//     '& .css-1ysp02-MuiButtonBase-root-MuiIconButton-root':{
-//         width:"60px"
-//     }
-// }));
 
 
 const SearchBar = ({ position }) => {
@@ -61,8 +17,7 @@ const SearchBar = ({ position }) => {
     const [origin, setOrigin] = useState("")
     const [destination, setDestination] = useState(position)
     const [pnr, setPnr] = useState()
-    const [departuredate, setDeparturedate] = useState(null)
-    const [arrivaldate, setArrivaldate] = useState(null)
+    const [name, setName] = useState('')
     const [selection, setSelection] = useState("departure")
     const pannel1Ref = useRef()
     const pannel2Ref = useRef()
@@ -88,20 +43,14 @@ const SearchBar = ({ position }) => {
     const handlePannel2 = () => {
         try {
             if(!isAuthorized) navigate('/login')
-            if (!pnr || (!departuredate && !arrivaldate)) {
+            if (!pnr || !name) {
                 pannel2Ref.current.classList.replace("error-search-hidden", "error-search-visible")
                 setTimeout(() => pannel2Ref.current.classList.replace("error-search-visible", "error-search-hidden"), 2000)
                 return;
             }
             let date
-            if (departuredate) {
-                date = dayjs(departuredate).format('MMMM,DD,YYYY,dddd')
-                navigate(`/passenger?pnr=${pnr}&departureTime=${date}`)
-            }
-            else {
-                date = dayjs(arrivaldate).format('MMMM,DD,YYYY,dddd')
-                navigate(`/flights?pnr=${pnr}&arrivalTime=${date}`)
-            }
+            
+                navigate(`/passenger?pnr=${pnr}&name=${name}`)
             
 
         } catch (error) {
@@ -144,32 +93,11 @@ const SearchBar = ({ position }) => {
                         <div >
                             <div className='searchbar-input'>
                                 <label for='Departure-airport-search-1'>Enter Your PNR</label>
-                                <input placeholder='Departure Airport' id='Departure-airport-search-1' value={pnr} onChange={(e) => { setPnr(e.target.value) }}></input>
+                                <input placeholder='Enter PNR of your ticket' id='Departure-airport-search-1' value={pnr} onChange={(e) => { setPnr(e.target.value) }}></input>
                             </div>
                             <div className='searchbar-input-2'>
-                                <div style={{ position: "relative", top: "12px", paddingBottom: "10px" }}>
-                                    <label for='departure'> Departure Date</label>
-                                    <input type="radio"
-                                        value="departure"
-                                        checked={selection === 'departure'}
-                                        name='date'
-                                        onChange={(e) => setSelection(e.target.value)}
-                                    />
-                                    <label for='arrival' style={{ marginLeft: "25px" }}> Arrival Date</label>
-                                    <input type="radio"
-                                        value="arrival"
-                                        checked={selection === 'arrival'}
-                                        name='date'
-                                        onChange={(e) => setSelection(e.target.value)} />
-
-                                </div>
-                                <div>
-                                    {selection === 'arrival' ? <>
-                                        <DatePicker sx={{ background: "white" }} label="Choose date of Arrival" value={arrivaldate} onChange={(value) => setArrivaldate(value)} />
-                                    </> : <>
-                                        <DatePicker sx={{ background: "white" }} label="Choose date of Departure" value={departuredate} onChange={(value) => setDeparturedate(value)} />
-                                    </>}
-                                </div>
+                               <label for='Departure-airport-search-1'>Enter Your Name</label>
+                                <input placeholder='Enter your name on ticket' id='Departure-airport-search-1' value={name} onChange={(e) => { setName(e.target.value) }}></input>
                             </div>
                             <button onClick={handlePannel2} className='pannel-2-btn' style={{ backgroundColor: "#bcbc06", cursor: "pointer" }}> Continue <EastIcon /></button>
                         </div>

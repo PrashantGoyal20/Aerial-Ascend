@@ -61,3 +61,18 @@
             margin-top: 20px;
             color: #777;
         }
+
+        .Cancel-ticket{
+            margin-top: 40px;
+            margin-bottom: 40px;
+            margin-right: 50%;
+            margin-left: 45%;
+            border: transparent;
+            color: white;
+            background-color: red;
+            width: 200px;
+            padding: 10px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+        }

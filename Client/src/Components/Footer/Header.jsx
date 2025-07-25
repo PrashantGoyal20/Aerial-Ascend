@@ -28,11 +28,11 @@ const Header = ( {src,height}) => {
             <Link to='/'><img src={src} style={{height:height}} /></Link>
             <nav>
                 <ul>
-                    <li>
-                        <Link to='/' className='header-link'>
-                            BOOK
+                     {user && user._id?<li>
+                        <Link to='/myBookings' className='header-link'>
+                            MY BOOKINGS
                         </Link>
-                    </li>
+                    </li>:<></>}
                     <li>
                         <Link to='/manage' className='header-link'>
                             MANAGE

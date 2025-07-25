@@ -1,4 +1,5 @@
 import { Flights } from "../DB/flighs.js";
+import { Passenger } from "../DB/passenger.js";
 import { Location } from "../DB/Locations.js";
 import { User } from "../DB/user.js";
 import ErrorHandler from "../Middleware/error.js";
@@ -45,6 +46,11 @@ export const updateFlight=async(req,res,next)=>{
       new: true,
       runValidators: true
     });
+
+    await Passenger.updateMany({airlineID:id},{ $set: { status: 'Cancelled' } }, {
+      new: true,
+      runValidators: true
+    })
     res.status(200).json({
       success: true,
       message: "Flight Updated!",

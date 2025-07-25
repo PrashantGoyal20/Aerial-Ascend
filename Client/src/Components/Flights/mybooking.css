@@ -1,0 +1,62 @@
+.mybooking{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    margin-bottom: 268px;
+}
+.mybooking-container{
+    background-color: white;
+    width: 80%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+    padding: 20px;
+}
+.mybooking-container-left{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+
+}
+.mybooking-container-left div{
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    margin-top: 20px;
+    width: 200px;
+    justify-content: space-evenly;
+}
+.mybooking-container-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.mybooking-flightNumber{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+.mybooking-flightNumber span{
+    margin-top: 20px;
+}
+
+.mybooking-confirmed{
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    background-image: radial-gradient(green, yellowgreen);
+}
+
+.mybooking-cancelled{
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    background-image: radial-gradient(rgb(212, 8, 8), rgb(205, 50, 107));
+}

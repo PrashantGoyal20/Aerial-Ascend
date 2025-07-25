@@ -61,9 +61,7 @@ const Help = () => {
       if (!keyRef.current.innerText.trim()) return;
       setAns(prev => [...prev, { role: 'user', content: `${keyRef.current.innerText}` }])
       localStorage.setItem('chatMessages', JSON.stringify(ans));
-      console.log('messages saved')
       let ques = keyRef.current.innerText
-      console.log(ques)
       return ques ;
     
   }

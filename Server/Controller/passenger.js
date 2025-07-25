@@ -10,6 +10,7 @@ import fs from "fs"
 
 export const postPassenger=async (req,res,next)=>{
     const {id}=req.params;
+    const {_id}=req.user
     const {seatType}=req.query
     const flight = await Flights.findById(id);
           if (!flight) {
@@ -35,13 +36,14 @@ await Flights.findOneAndUpdate({ _id: id, [`seatsAvailable.${index}`]: { $gt: 0 
 
     if(expectedSignature==razorpay_signature){
       const passenger = await Passenger.create({
-          name,email,phone,age,address,airlineID:id,flightNumber,price:bookingPrice,seatType,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature
+          userId:_id,name,email,phone,age,address,airlineID:id,flightNumber,price:bookingPrice,seatType,origin,destination, razorpay_payment_id, razorpay_order_id, razorpay_signature
   });
   
   res.status(200).json({
     success: true,
     message: "Application Submitted!",
     passenger,
+
   });
     }
     else{
@@ -52,15 +54,38 @@ await Flights.findOneAndUpdate({ _id: id, [`seatsAvailable.${index}`]: { $gt: 0 
     }
 };
 
+export const allBookings=async(req,res,next)=>{
+  const {_id}=req.user
+  const bookings=await Passenger.find({userId:_id})
+
+  res.status(200).json({
+    success:true,
+    bookings
+  })
+}
+
+export const cancellTicket=async(req,res,next)=>{
+  console.log('cancelTicket')
+  const {id}=req.params
+  await Passenger.findByIdAndUpdate(id,{$set:{status:"Cancelled"}}, {
+      new: true,
+      runValidators: true
+    })
+    res.status(200).json({success:true})
+}
+
 export const searchPassenger=async(req,res,next)=>{
-  let {pnr,arrivalTime,departureTime}=req.query
+  let {pnr,name}=req.query
+
   try {
-    if(!pnr) return new ErrorHandler("Enter all Details",400)
+    if(!pnr || !name) return new ErrorHandler("Enter all Details",400)
       pnr=pnr.toString()
-    console.log(typeof pnr + pnr)
     const passenger=await Passenger.findById({_id:pnr});
     if(!passenger){
-      
+      return new ErrorHandler("No Such Passenger ,  Please check your details",200)
+    }
+    if(passenger.name!=name){
+      return new ErrorHandler("No Such Passenger ,  Please check your details",200)
     }
     const flight=await Flights.find({flightNumber:passenger.flightNumber})
     res.status(200).json({

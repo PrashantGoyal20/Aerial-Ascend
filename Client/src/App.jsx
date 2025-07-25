@@ -22,6 +22,7 @@ import PaymentFailed from './Components/Flights/PaymentFailed.jsx'
 import Manage from './Components/Home/Manage.jsx'
 import Search from './Components/Home/Search.jsx'
 import PassengerDetails from './Components/Flights/PassengerDetails.jsx'
+import MyBookings from './Components/Flights/MyBookings.jsx'
 
 
 const App = () => {
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="/postflight" element={<PostFlight/>}/>
           <Route path="/editprofile" element={<EditProfile/>}/>
           <Route path='/passenger' element={<PassengerDetails/>}/>
+          <Route path='/myBookings' element={<MyBookings/>}/>
           <Route path='/bookTicket/:id' element={<BookTicket/>}/>
           <Route path='/helpDesk' element={<Help/>}/>
           <Route path='/flight/paymentSuccess/:id' element={<PaymentSuccessfull/>}/>
