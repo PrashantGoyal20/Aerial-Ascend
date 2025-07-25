@@ -32,7 +32,7 @@ const MyBookings = () => {
         <div>
             {load ? <Loader /> : <div>
                 <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" height="85px" />
-                <div className='mybooking'>
+                {Object.keys(bookings).length!=0?<div className='mybooking'>
                     {bookings.map((booking, index) => {
                         return (
                             <div className='mybooking-container' onClick={(e) => handlenavigate(booking._id, booking.name)}>
@@ -56,7 +56,8 @@ const MyBookings = () => {
                             </div>
                         )
                     })}
-                </div>
+                </div>:<div className='mybooking'> No Bookings made yet!!!!</div>}
+                
                 <Footer />
             </div>}
         </div>
