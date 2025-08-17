@@ -29,6 +29,8 @@ export const register = async (req, res, next) => {
       Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    secure: true,    
+    sameSite: "none",
   };
 
   res.status(200).cookie("token", token, options).json({
@@ -57,6 +59,8 @@ export const login = async (req, res, next) => {
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
+      secure: true,    
+      sameSite: "none",
     }
     res.status(200).cookie("token", token, options).json({
       success: true,
@@ -79,7 +83,8 @@ export const login = async (req, res, next) => {
 export const logout = async (req, res, next) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: true
+    secure: true,    
+    sameSite: "none",
   });
   res.status(200).json({
     sucsess:true,
