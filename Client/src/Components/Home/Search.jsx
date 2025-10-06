@@ -49,7 +49,7 @@ const Search = () => {
                     <span className='heading-admin-flight'>Set Out on a wonderful journey with Us </span>
                 </div>}
                 <div style={{position:"relative",bottom:"220px",marginBottom:"-200px"}}>
-            <SearchBar position={position.location}/>
+            <SearchBar manage='false'/>
             </div>
         </div>
         <Footer/>

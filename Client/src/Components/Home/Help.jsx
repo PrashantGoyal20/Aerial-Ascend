@@ -9,7 +9,6 @@ import { useRef } from 'react';
 
 const Help = () => {
   const server=import.meta.env.VITE_API_URL
-  // const [question, setQuestion] = useState('')
   const [ans, setAns] = useState([]);
   const [load, setLoad] = useState(true)
   const keyRef = useRef(null)
@@ -70,7 +69,6 @@ const Help = () => {
       let ques = await handleClear()
       if(ques.length==0) return
       keyRef.current.innerText = ''
-      console.log(ques)
       handleSubmit(ques)
   }
   const handleSubmit = async (ques) => {

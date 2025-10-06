@@ -105,6 +105,7 @@ export async function getEmbedding(text) {
         pooling: 'mean',
         normalize: true,
     });
+    console.log("got embeddings")
     return output.data
 }
 

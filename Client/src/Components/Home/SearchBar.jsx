@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import "./searchbar.css"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import SellIcon from '@mui/icons-material/Sell';
 import WatchLaterIcon from '@mui/icons-material/WatchLater'
 import FlightIcon from '@mui/icons-material/Flight';
@@ -11,11 +11,12 @@ import { TextField } from '@mui/material';
 import { InputAdornment } from '@mui/material';
 
 
-const SearchBar = ({ position }) => {
-
+const SearchBar = ({ manage }) => {
+    const location=useLocation()
+    
     const [pannel, setPannel] = useState(0)
     const [origin, setOrigin] = useState("")
-    const [destination, setDestination] = useState(position)
+    const [destination, setDestination] = useState('')
     const [pnr, setPnr] = useState()
     const [name, setName] = useState('')
     const [selection, setSelection] = useState("departure")
@@ -23,7 +24,14 @@ const SearchBar = ({ position }) => {
     const pannel2Ref = useRef()
     const navigate = useNavigate()
     const { isAuthorized, setIsAuthorized } = useContext(Context)
-
+    
+    useEffect(()=>{
+        const query=new URLSearchParams(location.search)
+    if(query.get('destination')){
+         setDestination(query.get('destination'))
+    }
+    console.log(manage)
+    },[])
 
     const handlePannel1 = () => {
         try {
@@ -62,14 +70,17 @@ const SearchBar = ({ position }) => {
     return (
         <div className='searchbar'>
             <div className='search-top'>
-                <ul>
+               {manage=='false'?<div className='search-top-design'>
+                Plan Details
+               </div>: <ul>
                     <li>
                         <Link onClick={() => setPannel(0)}><FlightIcon style={{ marginRight: "8px" }} />  Search flights</Link>
                     </li>
                     <li>
                         <Link onClick={() => setPannel(1)}><SellIcon style={{ marginRight: "8px" }} />  Manage Booking</Link>
                     </li>
-                </ul>
+                    
+                </ul>}
             </div>
             <div className='search-conetnt'>
                 {pannel == 0 ?
