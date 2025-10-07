@@ -154,7 +154,6 @@ export const chat = async (req, res, next) => {
         const vector = await getEmbedding(query);
 
         const reformedvector = Array.from(vector)
-        const collections = await client.getCollections();
         const response = await axios.post(`${QDRANT_URL}/collections/${COLLECTION}/points/search`,
             {
                 vector: reformedvector,
@@ -163,9 +162,9 @@ export const chat = async (req, res, next) => {
             },
             {
                 headers: {
-                    'api-key': process.env.QDRANT_API_KEY,
-                    'Content-Type': 'application/json'
-                }
+                'Content-Type': 'application/json',
+                'api-key': QDRANT_API_KEY,
+            },
             }
         );
         console.log('found vectors')
