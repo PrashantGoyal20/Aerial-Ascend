@@ -148,7 +148,6 @@ const PostFlight = () => {
         e.preventDefault();
         try {
             const data = await preprocessingData()
-            // console.log(data)
             await handleSubmit(data)
         } catch (error) {
             console.log(error)
@@ -161,7 +160,6 @@ const PostFlight = () => {
         try {
             
             console.log(data)
-            // console.log({ flightNumber, origin, destination, departureDateTime, arrivalDateTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable })
             const response = await axios.post(`${server}/postFlight`, data, {
                 headers: {
                     "Content-Type": "application/json",

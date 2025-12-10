@@ -8,6 +8,11 @@
     top: -75px;
     background-color: rgb(255, 255, 255);
 }
+.search-top-design{
+    background-image:linear-gradient(to right,rgb(246, 242, 7),#bcbc06) ;
+    padding: 20px;
+    font-size: 20px;
+}
 .search-top{
     box-shadow: 0px 1px 0px 0px black;
 

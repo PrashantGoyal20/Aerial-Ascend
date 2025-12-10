@@ -5,6 +5,7 @@ import { Context } from '../../main';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Header from '../Footer/Header';
+import Footer from '../Footer/Footer';
 
 const Register = () => {
   const server=import.meta.env.VITE_API_URL

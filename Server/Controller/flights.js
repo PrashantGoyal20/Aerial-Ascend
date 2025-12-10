@@ -6,56 +6,56 @@ import ErrorHandler from "../Middleware/error.js";
 
 
 //POST FLIGHT
-export const postFlight=async(req,res,next)=>{
-    const {role }=req.user;
-    if(role=="passenger")
-        return next(new ErrorHandler("User with current role can't post jobs", 401));
-        const {flightNumber,origin,destination,departureTime,arrivalTime,duration,price,originCoordinates,destinationCoordinates,seatType,seatsAvailable}=req.body 
-    if(!flightNumber || !origin || !destination || !departureTime || !arrivalTime || !duration || !price || !originCoordinates || !destinationCoordinates ||!seatType || !seatsAvailable ){
-        return next(new ErrorHandler("Please fill all the details of the flight"));
-    }
+export const postFlight = async (req, res, next) => {
+  const { role } = req.user;
+  if (role == "passenger")
+    return next(new ErrorHandler("User with current role can't post jobs", 401));
+  const { flightNumber, origin, destination, departureTime, arrivalTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable } = req.body
+  if (!flightNumber || !origin || !destination || !departureTime || !arrivalTime || !duration || !price || !originCoordinates || !destinationCoordinates || !seatType || !seatsAvailable) {
+    return next(new ErrorHandler("Please fill all the details of the flight"));
+  }
 
-    const duplicate=await Flights.findOne({flightNumber})
-    if(duplicate) return next(new ErrorHandler("Flight Number Already Register",404))
-    const airlineID=req.user._id;
-    const airlineDetails=await User.findById(airlineID);
-    const airline=airlineDetails.name;
-    const newFlight=await Flights.create({airlineID,airline,flightNumber,origin,destination,departureTime,arrivalTime,duration,price,originCoordinates,destinationCoordinates,seatType,seatsAvailable});
-    res.status(201).json({
-        success: true,
-        message:"Flight created successfully",
-        airlineDetails,
-        newFlight
-    });
-    
-  
+  const duplicate = await Flights.findOne({ flightNumber })
+  if (duplicate) return next(new ErrorHandler("Flight Number Already Register", 404))
+  const airlineID = req.user._id;
+  const airlineDetails = await User.findById(airlineID);
+  const airline = airlineDetails.name;
+  const newFlight = await Flights.create({ airlineID, airline, flightNumber, origin, destination, departureTime, arrivalTime, duration, price, originCoordinates, destinationCoordinates, seatType, seatsAvailable });
+  res.status(201).json({
+    success: true,
+    message: "Flight created successfully",
+    airlineDetails,
+    newFlight
+  });
+
+
 }
 
 //UPDATE FLIGHTS
-export const updateFlight=async(req,res,next)=>{
-    const {role}=req.user;
-    if(role=="passenger")
-        return next(new ErrorHandler("User with current role can't post jobs", 401));
+export const updateFlight = async (req, res, next) => {
+  const { role } = req.user;
+  if (role == "passenger")
+    return next(new ErrorHandler("User with current role can't post jobs", 401));
 
-    const { id } = req.params;
-    let flight = await Flights.findById(id);
-    if (!flight) {
-      return next(new ErrorHandler("OOPS! Error 404 not found.", 404));
-    }
-    const newflight = await Flights.findByIdAndUpdate(id, { $set: { status: 'Cancelled' } }, {
-      new: true,
-      runValidators: true
-    });
+  const { id } = req.params;
+  let flight = await Flights.findById(id);
+  if (!flight) {
+    return next(new ErrorHandler("OOPS! Error 404 not found.", 404));
+  }
+  const newflight = await Flights.findByIdAndUpdate(id, { $set: { status: 'Cancelled' } }, {
+    new: true,
+    runValidators: true
+  });
 
-    await Passenger.updateMany({airlineID:id},{ $set: { status: 'Cancelled' } }, {
-      new: true,
-      runValidators: true
-    })
-    res.status(200).json({
-      success: true,
-      message: "Flight Updated!",
-      newflight
-    });
+  await Passenger.updateMany({ airlineID: id }, { $set: { status: 'Cancelled' } }, {
+    new: true,
+    runValidators: true
+  })
+  res.status(200).json({
+    success: true,
+    message: "Flight Updated!",
+    newflight
+  });
 
 
 }
@@ -63,32 +63,32 @@ export const updateFlight=async(req,res,next)=>{
 //VIEW SINGLE FLIGHT
 export const getSingleFlight = async (req, res, next) => {
 
-    try {
+  try {
     const { id } = req.params;
-    const {seatType}=req.query
-      const flight = await Flights.findById(id);
-      if (!flight) {
-        return next(new ErrorHandler("Flight not found.", 404));
-      }
-      const index=flight.seatType.indexOf(seatType)
-      const ans={}
-      
-      res.status(200).json({
-        success: true,
-        flight,
-        index: index,
-      });
-    } catch (error) {
-      return next(new ErrorHandler(`Invalid ID / CastError`, 404));
-      
+    const { seatType } = req.query
+    const flight = await Flights.findById(id);
+    if (!flight) {
+      return next(new ErrorHandler("Flight not found.", 404));
     }
-  };
+    const index = flight.seatType.indexOf(seatType)
+    const ans = {}
+
+    res.status(200).json({
+      success: true,
+      flight,
+      index: index,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(`Invalid ID / CastError`, 404));
+
+  }
+};
 
 
 //GET ALL FLIGHTS
 export const getAllFlights = async (req, res, next) => {
-    try {
-       const {
+  try {
+    const {
       origin,
       destination,
       minPrice,
@@ -97,74 +97,74 @@ export const getAllFlights = async (req, res, next) => {
       departureTime
     } = req.query;
 
-    const query={}
+    const query = {}
 
-    if(origin && destination){
+    if (origin && destination) {
       query.origin = new RegExp(origin, 'i');
       query.destination = new RegExp(destination, 'i');
     }
-    else if(origin && source && maxPrice && minPrice){
+    else if (origin && source && maxPrice && minPrice) {
       query.origin = new RegEx(origin, 'i');
       query.destination = new RegExp(destination, 'i');
       query.price = {};
       if (minPrice) query.price.$gte = parseFloat(minPrice);
       if (maxPrice) query.price.$lte = parseFloat(maxPrice);
     }
-    else if(destination && (departureTime || arrivalTime) ){
+    else if (destination && (departureTime || arrivalTime)) {
       query.destination = new RegExp(destination, 'i');
-      if(arrivalTime){
+      if (arrivalTime) {
         const arrivalstart = new Date(arrivalTime);
-      const arrivalend = new Date(arrivalTime);
-      console.log(arrivalend)
-      arrivalend.setHours(23, 59, 59, 999);
-      query.arrivalTime = { $gte: arrivalstart, $lte:arrivalend};
+        const arrivalend = new Date(arrivalTime);
+        console.log(arrivalend)
+        arrivalend.setHours(23, 59, 59, 999);
+        query.arrivalTime = { $gte: arrivalstart, $lte: arrivalend };
       }
-      else if(departureTime){
-      const departurestart = new Date(departureTime);
-      const departureend = new Date(departureTime);
-      console.log(departureTime)
-      departureend.setHours(23, 59, 59, 999);
-      query.departureTime = { $gte: departurestart, $lte: departureend };
+      else if (departureTime) {
+        const departurestart = new Date(departureTime);
+        const departureend = new Date(departureTime);
+        console.log(departureTime)
+        departureend.setHours(23, 59, 59, 999);
+        query.departureTime = { $gte: departurestart, $lte: departureend };
       }
-      
-      
+
+
     }
-    else if(destination){
+    else if (destination) {
       query.destination = new RegExp(destination, 'i');
     }
-    const location={};
-    if(destination){
-    
-      const locationObj=await Location.findOne({location:query.destination})
-      if(Object.keys(location).length!=0){
-      location.location=locationObj.location;
-      location.locationPic=locationObj.locationPic;}
+    var locationObj = {};
+    if (destination) {
+      console.log("Searching location for", destination);
+      locationObj = await Location.findOne({ location: { $regex: destination, $options: 'i' } });
+      
     }
+
 
     const today = new Date();
     const twoDaysLater = new Date(today);
     twoDaysLater.setDate(today.getDate() + 2);
 
-
-    const flights=await Flights.find(query);
+    console.log(locationObj)
+    const flights = await Flights.find(query);
     res.status(200).json({
-        success: true,
-        flights,
-        location
-      });
+      success: true,
+      flights,
+      location:locationObj,
+    });
 
-    } catch (error) {
-      console.log(error)
-    }
-   }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-   export const searchLocation=async(req,res,next)=>{
-      const {destination} =req.query;
-      if(!destination) return;
-
-      const location=await Location({location:destination})
-      res.status(200).status({
-        success:true,
-        location
-      })
-   }
+export const searchLocation = async (req, res, next) => {
+  const { destination } = req.query;
+  if (!destination) return;
+  console.log("Searching location for", destination);
+  const locations = await Location.findOne({ location: { $regex: destination, $options: 'i' } });
+  console.log(locations)
+  res.status(200).status({
+    success: true,
+    location:locations
+  })
+}

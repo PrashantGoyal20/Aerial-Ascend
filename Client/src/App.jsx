@@ -23,6 +23,7 @@ import Manage from './Components/Home/Manage.jsx'
 import Search from './Components/Home/Search.jsx'
 import PassengerDetails from './Components/Flights/PassengerDetails.jsx'
 import MyBookings from './Components/Flights/MyBookings.jsx'
+import Us from './Components/Home/Us.jsx'
 
 
 const App = () => {
@@ -30,6 +31,8 @@ const App = () => {
   const {isAuthorized,setIsAuthorized,user,setUser}=useContext(Context)
   useEffect(()=>{
     const fetchUser=async()=>{
+      if(!isAuthorized) return;
+      
       try {
         const response = await axios.get(
         `${server}/auth/getuser`,{
@@ -66,6 +69,7 @@ const App = () => {
           <Route path='/flight/paymentSuccess/:id' element={<PaymentSuccessfull/>}/>
           <Route path='/flight/paymentFailed' element={<PaymentFailed/>}/>
           <Route path='/manage' element={<Manage/>}/>
+          <Route path='/us' element={<Us/>}/>
           <Route path='/*' element={<PageNotFound/>}/>
         </Routes>
         <Toaster/>

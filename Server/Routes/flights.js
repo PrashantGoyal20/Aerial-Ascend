@@ -12,4 +12,5 @@ router.get('/getallflights',getAllFlights);
 router.get('/flightDetails/:id',getSingleFlight);
 router.get('/searchLocation',searchLocation)
 
+
 export default router;

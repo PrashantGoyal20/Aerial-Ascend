@@ -5,14 +5,22 @@ import './help.css'
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios'
 import { useRef } from 'react';
+import { useContext } from 'react';
+import { Context } from '../../main';
+import { useNavigate } from 'react-router-dom';
 
 
 const Help = () => {
   const server=import.meta.env.VITE_API_URL
+  const{setIsAuthorized,isAuthorized,user}=useContext(Context)
   const [ans, setAns] = useState([]);
   const [load, setLoad] = useState(true)
   const keyRef = useRef(null)
+  const navigate=useNavigate()
   useEffect(() => {
+    if(!isAuthorized){
+             navigate('/login')
+        }
     const handleStartConv = async () => {
       await axios.post(`${server}/chat/start-chat`, { start: "start" },
         {
@@ -32,6 +40,7 @@ const Help = () => {
   }, [])
 
   useEffect(() => {
+
     const saved = localStorage.getItem('chatMessages');
     if (saved) setAns(JSON.parse(saved));
   }, []);

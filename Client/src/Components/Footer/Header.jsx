@@ -66,7 +66,7 @@ const Header = ( {src,height}) => {
                     </li>}
                     
                     <li>
-                        <Link to='/login' className='header-links'>
+                        <Link to='/us' className='header-links'>
                             <LanguageRoundedIcon style={{ marginRight: "6px" }} />
                             US
                         </Link>

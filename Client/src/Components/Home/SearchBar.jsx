@@ -30,7 +30,6 @@ const SearchBar = ({ manage }) => {
     if(query.get('destination')){
          setDestination(query.get('destination'))
     }
-    console.log(manage)
     },[])
 
     const handlePannel1 = () => {
