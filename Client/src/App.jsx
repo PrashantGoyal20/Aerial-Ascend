@@ -24,7 +24,7 @@ import Search from './Components/Home/Search.jsx'
 import PassengerDetails from './Components/Flights/PassengerDetails.jsx'
 import MyBookings from './Components/Flights/MyBookings.jsx'
 import Us from './Components/Home/Us.jsx'
-import Loading from './Components/Footer/loading.jsx'
+import Loading from './Components/Footer/Loading.jsx'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 
