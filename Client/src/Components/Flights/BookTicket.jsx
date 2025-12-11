@@ -37,9 +37,6 @@ const BookTicket = () => {
   let [month, day, year, weekday]=[]
 
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate('/login')
-    }
     const handleInitial = async () => {
 
       await axios.get(`${server}/flights/flightDetails/${id}${location.search}`, { withCredentials: true })
@@ -138,14 +135,11 @@ const BookTicket = () => {
   }
 
   const handleBooking = (value, id) => {
-        if (!isAuthorized) {
-            navigate('/login')
-        }
-        else {
+        
             navigate(`/bookTicket/${id}?seatType=${value}`)
             setIndex(flight.seatType.indexOf(value))
             setToggle(false)
-        }
+        
     }
 
   return (

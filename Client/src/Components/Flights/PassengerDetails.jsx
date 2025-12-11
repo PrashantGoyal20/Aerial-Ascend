@@ -23,9 +23,6 @@ const PassengerDetails = () => {
 
 
     useEffect(()=>{
-        if(!isAuthorized){
-            navigate('/login')
-        } 
         const handleInfo=async()=>{
             await axios.get(`${server}/passenger/search-passeneger${location.search}`).then(
                 (res)=>{

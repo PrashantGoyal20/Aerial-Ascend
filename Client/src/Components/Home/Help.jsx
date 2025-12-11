@@ -8,19 +8,16 @@ import { useRef } from 'react';
 import { useContext } from 'react';
 import { Context } from '../../main';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Footer/Loader';
 
 
 const Help = () => {
   const server=import.meta.env.VITE_API_URL
-  const{setIsAuthorized,isAuthorized,user}=useContext(Context)
+  const{setIsAuthorized,isAuthorized,user,loading}=useContext(Context)
   const [ans, setAns] = useState([]);
-  const [load, setLoad] = useState(true)
   const keyRef = useRef(null)
   const navigate=useNavigate()
   useEffect(() => {
-    if(!isAuthorized){
-             navigate('/login')
-        }
     const handleStartConv = async () => {
       await axios.post(`${server}/chat/start-chat`, { start: "start" },
         {
@@ -99,8 +96,8 @@ const Help = () => {
 
   }
 
-  return (
-    <>
+  return (<>
+    {loading?<><Loader/></>:<>
       <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" height="85px" />
       <div style={{ margin: "20px" }}>
         <div className='ans-container'>
@@ -125,7 +122,9 @@ const Help = () => {
         <button type='submit' onClick={handleMOuseClick}><SendIcon /></button>
       </div>
       <Footer />
+    </>}
     </>
+    
   )
 }
 

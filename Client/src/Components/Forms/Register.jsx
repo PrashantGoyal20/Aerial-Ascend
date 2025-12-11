@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import "./register.css"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { Context } from '../../main';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -14,7 +14,9 @@ const Register = () => {
   const [password, setPassword] = useState("")
   const [phone, setPhone] = useState()
   const [role, setRole] = useState("")
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context)
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ const Register = () => {
       setPhone();
       setRole("");
       setIsAuthorized(true);
-      navigate('/')
+      navigate(from, { replace: true });
       console.log(data.message);
     } catch (error) {
       toast.error(error.response.data.message);

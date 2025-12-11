@@ -2,6 +2,8 @@ import { User } from "../DB/user.js";
 import ErrorHandler from "../Middleware/error.js";
 import cloudinary from "cloudinary"
 import dotenv from "dotenv"
+import { client } from "../server.js";
+import { tokenKey } from "../Middleware/tokenkey.js";
 dotenv.config()
 
 //REGISTER
@@ -23,7 +25,10 @@ export const register = async (req, res, next) => {
     password,
     role
   });
+   const userSummary = { id: user._id.toString(), name: user.name, email: user.email, roles: user.role };
+
   const token = user.getSignedJwtToken();
+  const key=tokenKey(token);
   const options = {
     expires: new Date(
       Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
@@ -32,6 +37,7 @@ export const register = async (req, res, next) => {
     secure: true,    
     sameSite: "none",
   };
+  await client.setEx(key, process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000, JSON.stringify(userSummary));
 
   res.status(200).cookie("token", token, options).json({
     success: true,
@@ -50,10 +56,13 @@ export const login = async (req, res, next) => {
     const exist = await User.findOne({ email }).select("+password");
 
     if (!exist) return next(new ErrorHandler("Please enter correct credentials"));
+    
+    const userSummary = { id: exist._id.toString(), name: exist.name, email: exist.email, roles: exist.role };
 
     const match = await exist.matchPassword(password);
     if (!match) return next(new ErrorHandler("Please enter correct password"));
     const token = exist.getSignedJwtToken();
+    const key=tokenKey(token);  
     const options = {
       expires: new Date(
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
@@ -62,6 +71,7 @@ export const login = async (req, res, next) => {
       secure: true,    
       sameSite: "none",
     }
+    await client.setEx(key,process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000 , JSON.stringify(userSummary));
     res.status(200).cookie("token", token, options).json({
       success: true,
       user: exist,
@@ -81,6 +91,10 @@ export const login = async (req, res, next) => {
 //LOGOUT
 
 export const logout = async (req, res, next) => {
+   const {token} = req.cookies
+  if (token) {
+    await client.del(token);
+  }
   res.clearCookie('token', {
     httpOnly: true,
     secure: true,    
@@ -94,9 +108,9 @@ export const logout = async (req, res, next) => {
 
 //GET USER
 export const getUser = async (req, res, next) => {
-  try {
-    
-  const user = req.user;
+  try {  
+  const cache = req.user;
+  const user=JSON.parse(cache);
   res.status(200).json({
     success: true,
     user,

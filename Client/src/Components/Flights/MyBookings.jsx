@@ -12,10 +12,9 @@ const MyBookings = () => {
     const server = import.meta.env.VITE_API_URL
     const [load, setLoad] = useState(true)
     const [bookings, setBookings] = useState([])
-    const {isAuthorized}=useContext(Context)
+    const {isAuthorized,loading}=useContext(Context)
     const navigate = useNavigate()
     useEffect(() => {
-        if(!isAuthorized) navigate('/login')
         const findBookings = async () => {
             await axios.get(`${server}/passenger/getBookings`, { withCredentials: true }).then((res) => {
                 setBookings(res.data.bookings)
@@ -30,7 +29,7 @@ const MyBookings = () => {
     }
     return (
         <div>
-            {load ? <Loader /> : <div>
+            {(load ) ? <Loader /> : <div>
                 <Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" height="85px" />
                 {Object.keys(bookings).length!=0?<div className='mybooking'>
                     {bookings.map((booking, index) => {

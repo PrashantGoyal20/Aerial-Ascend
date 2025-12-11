@@ -19,8 +19,7 @@ import axios from "axios"
 import { upsertToQdrant, deleteFromQdrant } from "./Controller/Chat.js"
 import { Flights } from "./DB/flighs.js"
 import PQueue from 'p-queue';
-
-
+import {createClient} from "redis"
 
 const app = express()
 dotenv.config()
@@ -32,6 +31,15 @@ app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: '/tmp/'
 }))
+
+
+export const client=createClient({url:process.env.REDIS_URL})
+client.on("error", (err) => console.error("Redis Error", err));
+client.on("connect", () => console.log("Redis connected"));
+
+await client.connect();
+
+
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
@@ -60,10 +68,12 @@ app.use('/chat', chatRoute)
 
 const PORT = process.env.PORT
 
+
 const Qdrant_api_key = process.env.Qdrant_api_key
 const Qdrant_url = process.env.Qdrant_url
 const Qdrant_Collection = process.env.Qdrant_Collection
 const queue = new PQueue({ concurrency: 2 });
+
 
 mongoose.connect(process.env.MONGO_URL, {
   useUnifiedTopology: true,

@@ -24,15 +24,16 @@ import Search from './Components/Home/Search.jsx'
 import PassengerDetails from './Components/Flights/PassengerDetails.jsx'
 import MyBookings from './Components/Flights/MyBookings.jsx'
 import Us from './Components/Home/Us.jsx'
+import Loading from './Components/Footer/loading.jsx'
+import { useCallback } from 'react'
+import toast from 'react-hot-toast'
 
 
 const App = () => {
   const server=import.meta.env.VITE_API_URL
-  const {isAuthorized,setIsAuthorized,user,setUser}=useContext(Context)
-  useEffect(()=>{
-    const fetchUser=async()=>{
-      if(!isAuthorized) return;
-      
+  const {isAuthorized,setIsAuthorized,user,setUser,loading,setLoading}=useContext(Context)
+  const fetchUser=useCallback(async()=>{
+    setLoading(true)
       try {
         const response = await axios.get(
         `${server}/auth/getuser`,{
@@ -43,13 +44,23 @@ const App = () => {
       setUser(response.data.user);
       setIsAuthorized(true);
     }
+    if(response.data.success==false){
+      setIsAuthorized(false);
+    }
       } catch (error) {
         console.error(error)
+      }finally{
+        setLoading(false)
       }
       
-    };
+    },[setIsAuthorized])
+  useEffect(()=>{
+    
     fetchUser();
-  },[isAuthorized])
+    console.log(user)
+  },[fetchUser])
+
+
   return (
     <BrowserRouter>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -58,19 +69,23 @@ const App = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>} />
           <Route path="/search" element={<Search/>}/>
-          <Route path="/flights" element={<Flights/>}/>
-          <Route path="/profile" element={<Profile/>}/>
-          <Route path="/postflight" element={<PostFlight/>}/>
-          <Route path="/editprofile" element={<EditProfile/>}/>
-          <Route path='/passenger' element={<PassengerDetails/>}/>
-          <Route path='/myBookings' element={<MyBookings/>}/>
-          <Route path='/bookTicket/:id' element={<BookTicket/>}/>
-          <Route path='/helpDesk' element={<Help/>}/>
-          <Route path='/flight/paymentSuccess/:id' element={<PaymentSuccessfull/>}/>
-          <Route path='/flight/paymentFailed' element={<PaymentFailed/>}/>
+          
           <Route path='/manage' element={<Manage/>}/>
           <Route path='/us' element={<Us/>}/>
           <Route path='/*' element={<PageNotFound/>}/>
+
+
+
+          <Route path="/flights" element={<Flights/>}/>
+          <Route path="/profile" element={<Loading><Profile/></Loading>}/>
+          <Route path="/postflight" element={<Loading><PostFlight/></Loading>}/>
+          <Route path="/editprofile" element={<EditProfile/>}/>
+          <Route path='/passenger' element={<Loading><PassengerDetails/></Loading>}/>
+          <Route path='/myBookings' element={ <Loading><MyBookings/></Loading>}/>
+          <Route path='/bookTicket/:id' element={<Loading><BookTicket/></Loading>}/>
+          <Route path='/helpDesk' element={<Loading><Help/></Loading>}/>
+          <Route path='/flight/paymentSuccess/:id' element={<Loading><PaymentSuccessfull/></Loading>}/>
+          <Route path='/flight/paymentFailed' element={<Loading><PaymentFailed/></Loading>}/>
         </Routes>
         <Toaster/>
     </LocalizationProvider>  

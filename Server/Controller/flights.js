@@ -134,9 +134,7 @@ export const getAllFlights = async (req, res, next) => {
     }
     var locationObj = {};
     if (destination) {
-      console.log("Searching location for", destination);
       locationObj = await Location.findOne({ location: { $regex: destination, $options: 'i' } });
-      
     }
 
 
@@ -144,7 +142,6 @@ export const getAllFlights = async (req, res, next) => {
     const twoDaysLater = new Date(today);
     twoDaysLater.setDate(today.getDate() + 2);
 
-    console.log(locationObj)
     const flights = await Flights.find(query);
     res.status(200).json({
       success: true,
@@ -160,9 +157,7 @@ export const getAllFlights = async (req, res, next) => {
 export const searchLocation = async (req, res, next) => {
   const { destination } = req.query;
   if (!destination) return;
-  console.log("Searching location for", destination);
   const locations = await Location.findOne({ location: { $regex: destination, $options: 'i' } });
-  console.log(locations)
   res.status(200).status({
     success: true,
     location:locations

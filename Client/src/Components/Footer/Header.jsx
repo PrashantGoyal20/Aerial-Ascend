@@ -11,7 +11,6 @@ const Header = ( {src,height}) => {
     const server=import.meta.env.VITE_API_URL
     const{setIsAuthorized,isAuthorized,user,setUser}=useContext(Context)
     const navigate=useNavigate()
-
     
     const handleLogout=async()=>{
         try {
@@ -28,7 +27,7 @@ const Header = ( {src,height}) => {
             <Link to='/'><img src={src} style={{height:height}} /></Link>
             <nav>
                 <ul>
-                     {user && user._id?<li>
+                     {user && user.id?<li>
                         <Link to='/myBookings' className='header-link'>
                             MY BOOKINGS
                         </Link>
@@ -53,11 +52,11 @@ const Header = ( {src,height}) => {
                    
                 </ul>
                 <ul>
-                {isAuthorized && user?._id ?<li>
+                {(isAuthorized && user) ?<li>
                     <Link to='/profile' className='header-profile-btn' style={{fontSize:"18px",letterSpacing:"2px",marginBottom:"2px",border:"transparent"}}>
-                        {user.name.split('')[0]}</Link>
+                        {user?.name.split('')[0]}</Link>
                 </li>:<></>}
-                {isAuthorized && user?._id?<li>
+                {(isAuthorized && user) ?<li>
                     <Link onClick={handleLogout} className='header-links'><AccountCircleRoundedIcon style={{ marginRight: "6px" }} />
                         LOG OUT</Link>
                 </li>:<li><Link to='/login' className='header-links'><AccountCircleRoundedIcon style={{ marginRight: "6px" }} />

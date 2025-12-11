@@ -47,9 +47,6 @@ const PostFlight = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(!isAuthorized){
-             navigate('/login')
-        }
         setTimeout(() => {
             setHeading1({ h1: "Start a New Journey", h2: "@Please add each entry carefully because no further changes cna be made once flight details are posted" })
             setLoading(false)

@@ -9,7 +9,7 @@ import Header from '../Footer/Header';
 import Footer from '../Footer/Footer';
 
 const Profile = () => {
-  const{setIsAuthorized,isAuthorized,user}=useContext(Context)
+  const{setIsAuthorized,isAuthorized,user,load}=useContext(Context)
   return (
     <><Header src="https://res.cloudinary.com/dc728fl24/image/upload/v1749895043/Logo-cut_iut7om.png" height="85px" />
     <div className='profile-container'>

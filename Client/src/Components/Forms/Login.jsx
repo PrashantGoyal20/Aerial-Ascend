@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import "./login.css"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { Context } from '../../main';
 import toast from 'react-hot-toast';
 import axios from "axios"
@@ -15,7 +15,9 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const {setIsAuthorized, setUser } = useContext(Context)
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +35,8 @@ const Login = () => {
       setPassword("");
       setIsAuthorized(true);
       setUser(data.user);
-      navigate('/')
+      console.log(from)
+      navigate(from, { replace: true });
 
     } catch (error) {
       toast.error("Please fill all Your Credentials ");

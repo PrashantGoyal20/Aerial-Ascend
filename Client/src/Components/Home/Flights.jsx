@@ -28,7 +28,7 @@ const Flights = () => {
     const surbtn = useRef()
 
     const navigate = useNavigate()
-    const { setIsAuthorized, isAuthorized, user } = useContext(Context)
+    const { setIsAuthorized, isAuthorized, user,  } = useContext(Context)
 
     useEffect(() => {
         const fetchFlights = async () => {
@@ -67,12 +67,9 @@ const Flights = () => {
     };
 
     const handleBooking = (value, id) => {
-        if (!isAuthorized) {
-            navigate('/login')
-        }
-        else {
+        
             navigate(`/bookTicket/${id}?seatType=${value}`)
-        }
+        
     }
 
 

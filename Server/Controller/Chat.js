@@ -168,13 +168,13 @@ export const chat = async (req, res, next) => {
             }
         );
         console.log('found vectors')
-        context = ""
+        context = []
 
         if (Object.keys(response.data.result).length > 0) {
-            const docs = response.data.result.map((item) => Object.entries(item.payload)
-                .map(([key, val]) => `${key}: ${Array.isArray(val) ? val.join(', ') : val}`)
-                .join(' | '));
-            context = docs.join("\n\n");
+            const docs = response.data.result.map((item) => {
+                context.push(item.payload.payload) ;
+            }
+            );
         }
         console.log(context)
 
