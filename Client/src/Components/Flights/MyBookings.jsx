@@ -20,6 +20,7 @@ const MyBookings = () => {
                 setBookings(res.data.bookings)
                 setLoad(false)
             })
+            
         }
         findBookings()
     }, [])
