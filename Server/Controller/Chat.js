@@ -178,6 +178,7 @@ export const chat = async (req, res, next) => {
         }
         console.log(context)
 
+        const dataToSend= `My question is ${query.toString()} Ans this query based on the given context ${JSON.stringify(context)}.If you don't find any relevant information in the context simply reply that you don't have that information.`
 
 
         //HUGGING FACE INTEGERATION
@@ -194,7 +195,7 @@ export const chat = async (req, res, next) => {
 
 
 
-        const result = await chatSession.sendMessage({ message: query.toString()});
+        const result = await chatSession.sendMessage({ message: dataToSend});
         console.log(result)
         const reply = result.text;
         res.status(200).json({
